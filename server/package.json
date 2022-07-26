@@ -17,6 +17,9 @@
   "scripts": {
     "start": "nodemon src/index.js",
     "dev": "ts-node ../sandbox.ts",
-    "build": "prisma generate --data-proxy"
+    "prisma": "prisma db push && database migrate"
+  },
+  "prisma": {
+    "schema": "database/schema.prisma"
   }
 }
