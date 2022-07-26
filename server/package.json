@@ -1,0 +1,22 @@
+{
+  "name": "server-part",
+  "description": "Server part of project",
+  "author": "double_hope",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "4.0.0",
+    "graphql-yoga": "^2.13.4",
+    "nodemon": "^2.0.19"
+  },
+  "devDependencies": {
+    "@types/node": "18.0.1",
+    "prisma": "4.0.0",
+    "ts-node": "10.5.0",
+    "typescript": "4.5.5"
+  },
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "dev": "ts-node ../sandbox.ts",
+    "build": "prisma generate --data-proxy"
+  }
+}

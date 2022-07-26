@@ -1,18 +1,27 @@
 {
-  "name": "empty",
-  "description": "An empty schema with no models, to build your own your own schema",
-  "license": "UNLICENSED",
-  "dependencies": {
-    "@prisma/client": "4.0.0"
-  },
-  "devDependencies": {
-    "@types/node": "18.0.1",
-    "prisma": "4.0.0",
-    "ts-node": "10.5.0",
-    "typescript": "4.5.5"
-  },
+  "name": "online-chat",
+  "version": "1.0.0",
+  "description": "Online chat task",
+  "main": "index.js",
   "scripts": {
-    "dev": "ts-node ./sandbox.ts",
-    "build": "prisma generate --data-proxy"
+    "start:client": "cd client && npm run start",
+    "start:server": "cd server && npm run start",
+    "start": "concurrently -k -p \"{name}\" -n \"CLIENT,SERVER\" -c \"green,blue\" \"npm:start:client\" \"npm:start:server\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/double-hope/online-chat.git"
+  },
+  "keywords": [
+    "bsa"
+  ],
+  "author": "double_hope",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/double-hope/online-chat/issues"
+  },
+  "homepage": "https://github.com/double-hope/online-chat#readme",
+  "dependencies": {
+    "concurrently": "^7.3.0"
   }
 }
