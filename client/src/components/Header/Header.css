@@ -1,9 +1,32 @@
 .header-container {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: center;
+    background-color: hsl(208, 61%, 20%);
+    z-index: 1;
+ }
+
+.search-icon-container{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+.search-icon-container > *{
+    padding: 0 10px;
 }
 
-a {
-    margin: 10px;
-    font-size: 24px;
+.header-text{
+    color: white;
+}
+.search:hover{
+    cursor: pointer;
+}
+.search-input{
+    display: none;
+}
+.search-input.active {
+    display: inline-block;
 }

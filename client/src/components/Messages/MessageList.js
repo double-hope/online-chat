@@ -3,8 +3,8 @@ import { useQuery } from '@apollo/client';
 import { GET_MESSAGES, NEW_MESSAGE } from '../../queries';
 import { MessageItem } from './MessageItem';
 import './Message.css';
-import CreateMessage from "./CreateMessage";
-import {orderBy} from "../../constants";
+import CreateMessage from './CreateMessage';
+import {orderBy} from '../../constants';
 
 export const MessageList = () => {
     const { loading, error, data, subscribeToMore } = useQuery(GET_MESSAGES,{
