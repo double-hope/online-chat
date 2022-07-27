@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const GET_MESSAGES = gql`
-    query getMessages{
-        messages{
+    query getMessages($orderBy: MessageOrderByInput!){
+        messages(orderBy: $orderBy){
             messageList{
                 id
                 text
@@ -18,6 +18,24 @@ export const CREATE_MESSAGE = gql`
         createMessage(message: $message) {
             id
             text
+        }
+    }
+`;
+
+export const UPDATE_LIKES = gql`
+    mutation updateLikes($message: LikesInput!) {
+        updateLikes(message: $message) {
+            id
+            likes
+        }
+    }
+`;
+
+export const UPDATE_DISLIKES = gql`
+    mutation updateDislikes($message: DislikesInput!) {
+        updateDislikes(message: $message) {
+            id
+            dislikes
         }
     }
 `;

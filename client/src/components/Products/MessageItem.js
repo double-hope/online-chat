@@ -1,10 +1,84 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import './Message.css';
+import { UPDATE_DISLIKES, UPDATE_LIKES } from '../../queries';
+import { useMutation } from '@apollo/client';
+import { updateLikesStore, updateDislikesStore} from '../../helpers/helpers';
+
+
 
 export const MessageItem = ({ message }) => {
-    const [isAddingAnswers, setIsAddingAnswers] = useState(false);
+    const [isLiked, setIsLiked] = useState(false);
+    const [isDisliked, setIsDisliked] = useState(false);
 
-    const handleReviewSubmit = useCallback(() => setIsAddingAnswers(false), []);
+    const id = message.id;
+    let likes = message.likes;
+    let dislikes = message.dislikes;
+
+    const [updateLikes, { _loading, _error }] = useMutation(UPDATE_LIKES, {
+        update: updateLikesStore(id),
+    });
+
+    const [updateDislikes, { loading, error }] = useMutation(UPDATE_DISLIKES, {
+        update: updateDislikesStore(id),
+    });
+
+    const like = () => {
+        if(!isLiked){
+            if(isDisliked){
+                dislikes--;
+                updateDislikes({
+                    variables: {
+                        message: { id , dislikes}
+                    }
+                });
+            }
+            likes++;
+            updateLikes({
+                variables: {
+                    message: { id , likes}
+                }
+            });
+            setIsLiked(true);
+            setIsDisliked(false);
+        } else {
+            likes--;
+            updateLikes({
+                variables: {
+                    message: { id , likes}
+                }
+            });
+            setIsLiked(false);
+        }
+    }
+
+    const dislike = () => {
+        if(!isDisliked){
+            if(isLiked){
+                likes--;
+                updateLikes({
+                    variables: {
+                        message: { id, likes }
+                    }
+                });
+            }
+            dislikes++;
+            updateDislikes({
+                variables: {
+                    message: { id , dislikes }
+                }
+            });
+            setIsLiked(false);
+            setIsDisliked(true);
+        } else {
+            dislikes--;
+            updateDislikes({
+                variables: {
+                    message: { id , dislikes }
+                }
+            });
+            setIsDisliked(false);
+        }
+    }
 
     return (
         <div className="message">
@@ -13,9 +87,17 @@ export const MessageItem = ({ message }) => {
                     {message.text}
                 </div>
                 <div className="likes-dislikes">
-                    <i className="far fa-thumbs-up icon"/>
+                    {isLiked
+                        ?<i className="fas fa-thumbs-up icon" onClick={like}/>
+                        :<i className="far fa-thumbs-up icon" onClick={like}/>
+                    }
+
                     <span className="votes"> {message.likes} </span>
-                    <i className="far fa-thumbs-down icon"/>
+                    {isDisliked
+                        ?<i className="fas fa-thumbs-down icon" onClick={dislike}/>
+                        :<i className="far fa-thumbs-down icon" onClick={dislike}/>
+                    }
+
                     <span className="votes"> {message.dislikes} </span>
                 </div>
             </div>
