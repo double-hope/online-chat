@@ -15,6 +15,11 @@
 # Run
 
 `cd ..`
+
 `npm run start` - start server and client
+
 `npm run start:server` - start server
+
 `npm run start:client` - start client
+
+open http://localhost:3000/
