@@ -1,15 +1,8 @@
-function products(parent, args, context){
-    return [{
-        id: '1',
-        title: 'Product1',
-        price: 10.5
-    }, {
-        id: '2',
-        title: 'Product2',
-        price: 15.59
-    }];
+const products = async (_parent, _args, context, _info) => {
+    const foundProducts = await context.prisma.product.findMany();
+    return foundProducts;
 }
 
 module.exports = {
-    products
+    products,
 }

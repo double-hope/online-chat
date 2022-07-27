@@ -3,8 +3,17 @@ type Query {
     products: [Product!]!
 }
 
+input ProductInput{
+    title: String!
+    price: Float!
+}
+
 type Mutation{
-    postProduct(title: String!, price: Float!): Product!
+    createProduct(product: ProductInput!): Product!
+}
+
+type Subscription{
+    newProduct: Product
 }
 
 type Product{

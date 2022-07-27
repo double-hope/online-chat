@@ -1,10 +1,9 @@
-function postProduct(parent, args, context, info){
-    return context.prisma.createProduct({
-        title: args.title,
-        price: args.price
-    });
+const createProduct = async (_parent, args, context) => {
+    const createdProduct = await context.prisma.product.create( {data: args.product} );
+    context.pubsub.publish('NEW_PRODUCT', createdProduct);
+    return createdProduct;
 }
 
 module.exports = {
-    postProduct
+    createProduct,
 }
