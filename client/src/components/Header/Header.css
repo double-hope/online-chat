@@ -21,6 +21,9 @@
 .header-text{
     color: white;
 }
+.search{
+    color: white;
+}
 .search:hover{
     cursor: pointer;
 }
