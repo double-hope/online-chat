@@ -4,9 +4,12 @@ import { GET_MESSAGES, NEW_MESSAGE } from '../../queries';
 import { MessageItem } from './MessageItem';
 import './Message.css';
 import CreateMessage from "./CreateMessage";
+import {orderBy} from "../../constants";
 
 export const MessageList = () => {
-    const { loading, error, data, subscribeToMore } = useQuery(GET_MESSAGES);
+    const { loading, error, data, subscribeToMore } = useQuery(GET_MESSAGES,{
+        variables: { orderBy },
+    });
 
     useEffect(() => {
         subscribeToMore({
@@ -29,6 +32,7 @@ export const MessageList = () => {
             },
         });
     }, [subscribeToMore]);
+
 
     if (loading) {
         return <div>Is Loading...</div>;

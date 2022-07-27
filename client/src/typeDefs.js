@@ -5,9 +5,11 @@ export const typeDefs = gql`
         asc
         desc
     }
-    input ProductOrderByInput {
-        title: Sort
-        id: Sort
+
+    input MessageOrderByInput{
+        createdAt: Sort
+        likes: Sort
+        dislikes: Sort
     }
 
     input MessageInput {

@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {CREATE_MESSAGE, GET_MESSAGES} from "../../queries";
 import { useMutation } from '@apollo/client';
+import {orderBy} from '../../constants';
 
 const CreateMessage = () => {
 
@@ -8,7 +9,7 @@ const CreateMessage = () => {
 
     const [createMessage, { loading, error }] = useMutation(CREATE_MESSAGE, {
         refetchQueries: [
-            { query: GET_MESSAGES },
+            { query: GET_MESSAGES, variables: { orderBy } },
         ],
         onCompleted: () => console.log(createMessage),
     });
@@ -21,7 +22,7 @@ const CreateMessage = () => {
         }).then(r => console.log(r));
         setText('');
     };
-    
+
     return (
         <div className="enter-message-container">
             <div className="enter-message">

@@ -3,6 +3,12 @@ enum Sort {
     desc
 }
 
+input MessageOrderByInput{
+    createdAt: Sort
+    likes: Sort
+    dislikes: Sort
+}
+
 type Messages {
     messageList: [Message!]!
     count: Int!
@@ -28,7 +34,7 @@ type Answer {
 
 type Query {
     version: String!
-    messages: Messages
+    messages(filter: String, skip: Int, take: Int, orderBy: MessageOrderByInput): Messages
     answers: [Answer!]!
 }
 

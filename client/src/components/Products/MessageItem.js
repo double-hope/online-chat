@@ -1,54 +1,10 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import './Message.css';
-import {GET_MESSAGES, UPDATE_DISLIKES, UPDATE_LIKES} from '../../queries';
+import { UPDATE_DISLIKES, UPDATE_LIKES } from '../../queries';
 import { useMutation } from '@apollo/client';
+import { updateLikesStore, updateDislikesStore} from '../../helpers/helpers';
 
-const updateLikesStore = ( messageId ) => (cache, { data: { updateLikes } })  => {
-    const { messages } = cache.readQuery({
-        query: GET_MESSAGES,
-    });
-    const updatedLikes = messages.messageList.map(item => {
-        if (item.id === messageId) {
 
-            return {
-                ...item,
-                likes: updateLikes.likes,
-            };
-        }
-
-        return item;
-    });
-
-    cache.writeQuery({
-        query: GET_MESSAGES,
-        data: { messages: { ...messages, messageList: updatedLikes } },
-    });
-
-}
-
-const updateDislikesStore = ( messageId ) => (cache, { data: { updateDislikes } })  => {
-
-    const { messages } = cache.readQuery({
-        query: GET_MESSAGES,
-    });
-    const updatedLikes = messages.messageList.map(item => {
-        if (item.id === messageId) {
-
-            return {
-                ...item,
-                dislikes: updateDislikes.dislikes,
-            };
-        }
-
-        return item;
-    });
-
-    cache.writeQuery({
-        query: GET_MESSAGES,
-        data: { messages: { ...messages, messageList: updatedLikes } },
-    });
-
-}
 
 export const MessageItem = ({ message }) => {
     const [isLiked, setIsLiked] = useState(false);
@@ -84,6 +40,14 @@ export const MessageItem = ({ message }) => {
             });
             setIsLiked(true);
             setIsDisliked(false);
+        } else {
+            likes--;
+            updateLikes({
+                variables: {
+                    message: { id , likes}
+                }
+            });
+            setIsLiked(false);
         }
     }
 
@@ -105,6 +69,14 @@ export const MessageItem = ({ message }) => {
             });
             setIsLiked(false);
             setIsDisliked(true);
+        } else {
+            dislikes--;
+            updateDislikes({
+                variables: {
+                    message: { id , dislikes }
+                }
+            });
+            setIsDisliked(false);
         }
     }
 

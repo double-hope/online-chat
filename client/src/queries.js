@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const GET_MESSAGES = gql`
-    query getMessages{
-        messages{
+    query getMessages($orderBy: MessageOrderByInput!){
+        messages(orderBy: $orderBy){
             messageList{
                 id
                 text
