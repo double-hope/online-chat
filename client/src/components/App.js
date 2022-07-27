@@ -1,7 +1,8 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Header } from './Header/Header';
-import { MessageList } from './Products/MessageList';
+import { MessageList } from './Messages/MessageList';
+import './styles.css';
 
 export function App() {
   return (

@@ -1,11 +1,8 @@
-body{
-    font-family: "Trebuchet MS", sans-serif;
-}
-
 .container{
     display: grid;
     grid-template-rows: 1fr 100px;
 }
+
 .messages-container {
     grid-row: 0 / 1;
     display: flex;
@@ -25,21 +22,6 @@ body{
     border-radius: 20px 20px 20px 0;
     position: relative;
     box-shadow: 0 0 4px hsl(208, 61%, 20%);
-}
-
-.add-review, .submit-product {
-    margin-top: 10px;
-}
-
-.product-input {
-    margin-top: 6px;
-}
-
-.center-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
 }
 
 .enter-message-container{
@@ -81,12 +63,13 @@ button{
     color: hsl(208, 59%, 83%);
     font-size: 1em;
 }
-button:hover{
+
+button:hover, .icon:hover{
     cursor: pointer;
 }
 
 ::placeholder {
-    color: white;
+    color: rgba(255, 255, 255, .4);
     font-size: 1em;
 }
 

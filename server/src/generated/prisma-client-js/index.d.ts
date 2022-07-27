@@ -222,7 +222,7 @@ export class PrismaClient<
    * `prisma.product`: Exposes CRUD operations for the **Product** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Products
+    * // Fetch zero or more Messages
     * const products = await prisma.product.findMany()
     * ```
     */
@@ -2994,7 +2994,7 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Products to fetch.
+     * Determine the order of Messages to fetch.
      * 
     **/
     orderBy?: Enumerable<ProductOrderByWithRelationInput>
@@ -3008,21 +3008,21 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Products from the position of the cursor.
+     * Take `±n` Messages from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Products.
+     * Skip the first `n` Messages.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Products
+     * Count returned Messages
     **/
     _count?: true | ProductCountAggregateInputType
     /**
@@ -3179,15 +3179,15 @@ export namespace Prisma {
     ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Product'> extends True ? CheckSelect<T, Prisma__ProductClient<Product>, Prisma__ProductClient<ProductGetPayload<T>>> : CheckSelect<T, Prisma__ProductClient<Product | null >, Prisma__ProductClient<ProductGetPayload<T> | null >>
 
     /**
-     * Find zero or more Products that matches the filter.
+     * Find zero or more Messages that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
      * @param {ProductFindManyArgs=} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Products
+     * // Get all Messages
      * const products = await prisma.product.findMany()
      * 
-     * // Get first 10 Products
+     * // Get first 10 Messages
      * const products = await prisma.product.findMany({ take: 10 })
      * 
      * // Only select the `id`
@@ -3215,10 +3215,10 @@ export namespace Prisma {
     ): CheckSelect<T, Prisma__ProductClient<Product>, Prisma__ProductClient<ProductGetPayload<T>>>
 
     /**
-     * Create many Products.
-     *     @param {ProductCreateManyArgs} args - Arguments to create many Products.
+     * Create many Messages.
+     *     @param {ProductCreateManyArgs} args - Arguments to create many Messages.
      *     @example
-     *     // Create many Products
+     *     // Create many Messages
      *     const product = await prisma.product.createMany({
      *       data: {
      *         // ... provide data here
@@ -3266,10 +3266,10 @@ export namespace Prisma {
     ): CheckSelect<T, Prisma__ProductClient<Product>, Prisma__ProductClient<ProductGetPayload<T>>>
 
     /**
-     * Delete zero or more Products.
-     * @param {ProductDeleteManyArgs} args - Arguments to filter Products to delete.
+     * Delete zero or more Messages.
+     * @param {ProductDeleteManyArgs} args - Arguments to filter Messages to delete.
      * @example
-     * // Delete a few Products
+     * // Delete a few Messages
      * const { count } = await prisma.product.deleteMany({
      *   where: {
      *     // ... provide filter here
@@ -3282,12 +3282,12 @@ export namespace Prisma {
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Products.
+     * Update zero or more Messages.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
      * @param {ProductUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Products
+     * // Update many Messages
      * const product = await prisma.product.updateMany({
      *   where: {
      *     // ... provide filter here
@@ -3358,15 +3358,15 @@ export namespace Prisma {
     ): CheckSelect<T, Prisma__ProductClient<Product>, Prisma__ProductClient<ProductGetPayload<T>>>
 
     /**
-     * Count the number of Products.
+     * Count the number of Messages.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProductCountArgs} args - Arguments to filter Products to count.
+     * @param {ProductCountArgs} args - Arguments to filter Messages to count.
      * @example
-     * // Count the number of Products
+     * // Count the number of Messages
      * const count = await prisma.product.count({
      *   where: {
-     *     // ... the filter for the Products we want to count
+     *     // ... the filter for the Messages we want to count
      *   }
      * })
     **/
@@ -3589,35 +3589,35 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Products to fetch.
+     * Determine the order of Messages to fetch.
      * 
     **/
     orderBy?: Enumerable<ProductOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Products.
+     * Sets the position for searching for Messages.
      * 
     **/
     cursor?: ProductWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Products from the position of the cursor.
+     * Take `±n` Messages from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Products.
+     * Skip the first `n` Messages.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Products.
+     * Filter by unique combinations of Messages.
      * 
     **/
     distinct?: Enumerable<ProductScalarFieldEnum>
@@ -3650,35 +3650,35 @@ export namespace Prisma {
     **/
     include?: ProductInclude | null
     /**
-     * Filter, which Products to fetch.
+     * Filter, which Messages to fetch.
      * 
     **/
     where?: ProductWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Products to fetch.
+     * Determine the order of Messages to fetch.
      * 
     **/
     orderBy?: Enumerable<ProductOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Products.
+     * Sets the position for listing Messages.
      * 
     **/
     cursor?: ProductWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Products from the position of the cursor.
+     * Take `±n` Messages from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Products.
+     * Skip the first `n` Messages.
      * 
     **/
     skip?: number
@@ -3713,7 +3713,7 @@ export namespace Prisma {
    */
   export type ProductCreateManyArgs = {
     /**
-     * The data used to create many Products.
+     * The data used to create many Messages.
      * 
     **/
     data: Enumerable<ProductCreateManyInput>
@@ -3753,12 +3753,12 @@ export namespace Prisma {
    */
   export type ProductUpdateManyArgs = {
     /**
-     * The data used to update Products.
+     * The data used to update Messages.
      * 
     **/
     data: XOR<ProductUpdateManyMutationInput, ProductUncheckedUpdateManyInput>
     /**
-     * Filter which Products to update
+     * Filter which Messages to update
      * 
     **/
     where?: ProductWhereInput
@@ -3824,7 +3824,7 @@ export namespace Prisma {
    */
   export type ProductDeleteManyArgs = {
     /**
-     * Filter which Products to delete
+     * Filter which Messages to delete
      * 
     **/
     where?: ProductWhereInput
