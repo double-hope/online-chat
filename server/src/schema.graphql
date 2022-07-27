@@ -3,50 +3,49 @@ enum Sort {
     desc
 }
 
-input ProductOrderByInput {
-    title: Sort
-    id: Sort
+type Messages {
+    messageList: [Message!]!
+    count: Int!
 }
 
-type Products {
-    productList: [Product!]!
-    count: Int!
+type Message {
+    id: Int!
+    text: String!
+    likes: Int!
+    dislikes: Int!
+    createdAt: String!
+    answers: [Answer!]!
+}
+
+type Answer {
+    id: Int!
+    text: String!
+    likes: Int!
+    dislikes: Int!
+    createdAt: String!
+    message: Message!
 }
 
 type Query {
     version: String!
-    products(filter: String, skip: Int, take: Int, orderBy: ProductOrderByInput): Products
-    reviews: [Review!]!
+    messages: Messages
+    answers: [Answer!]!
 }
 
-input ProductInput {
-    title: String!
-    price: Float!
-}
-
-input ReviewInput {
+input MessageInput{
     text: String!
-    productId: Int!
+}
+
+input AnswerInput{
+    text: String!
+    messageId: Int!
 }
 
 type Mutation {
-    createProduct(product: ProductInput!): Product!
-    createReview(review: ReviewInput!): Review!
+    createMessage(message: MessageInput!): Message!
+    createAnswer(answer: AnswerInput!): Answer!
 }
 
 type Subscription {
-    newProduct: Product
-}
-
-type Product {
-    id: Int!
-    title: String!
-    price: Float!
-    reviews: [Review!]!
-}
-
-type Review {
-    id: Int!
-    text: String!
-    product: Product!
+    newMessage: Message
 }

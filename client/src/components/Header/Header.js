@@ -4,7 +4,6 @@ import './Header.css';
 
 export const Header = () => (
     <div className="header-container">
-        <Link to="/">Products</Link>
-        <Link to="/add">Add Product</Link>
+        <Link to="/">Messages</Link>
     </div>
 );

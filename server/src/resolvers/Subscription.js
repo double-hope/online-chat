@@ -1,10 +1,10 @@
-const newProductSubscribe = (_parent, _args, context) => context.pubsub.subscribe('NEW_PRODUCT');
+const newMessageSubscribe = (_parent, _args, context) => context.pubsub.subscribe('NEW_MESSAGE');
 
-const newProduct = {
-    subscribe: newProductSubscribe,
+const newMessage = {
+    subscribe: newMessageSubscribe,
     resolve: payload => payload,
 };
 
 module.exports = {
-    newProduct,
+    newMessage,
 };

@@ -1,46 +1,43 @@
 import { gql } from '@apollo/client';
 
-export const GET_PRODUCTS = gql`
-    query getProducts($orderBy: ProductOrderByInput!) {
-        products(orderBy: $orderBy) {
-            productList {
+export const GET_MESSAGES = gql`
+    query getMessages{
+        messages{
+            messageList{
                 id
-                title
-                price
-                reviews {
-                    id
-                    text
-                }
+                text
+                likes
+                dislikes
             }
-            count
         }
     }
 `;
 
-export const CREATE_PRODUCT = gql`
-    mutation createProduct($product: ProductInput!) {
-        createProduct(product: $product) {
-            id
-            title
-        }
-    }
-`;
-
-export const CREATE_REVIEW = gql`
-    mutation createReview($review: ReviewInput!) {
-        createReview(review: $review) {
+export const CREATE_MESSAGE = gql`
+    mutation createMessage($message: MessageInput!) {
+        createMessage(message: $message) {
             id
             text
         }
     }
 `;
 
-export const NEW_PRODUCT = gql`
-    subscription newProduct {
-        newProduct {
+// export const CREATE_ANSWER = gql`
+//     mutation createAnswer($answer: AnswerInput!) {
+//         createAnswer(answer: $answer) {
+//             id
+//             text
+//         }
+//     }
+// `;
+
+export const NEW_MESSAGE = gql`
+    subscription newMessage {
+        newMessage {
             id
-            price
-            title
+            text
+            likes
+            dislikes
         }
     }
 `;

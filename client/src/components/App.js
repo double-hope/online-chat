@@ -1,16 +1,14 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Header } from './Header/Header';
-import { AddProducts } from './Products/AddProducts';
-import { ProductList } from './Products/ProductList';
+import { MessageList } from './Products/MessageList';
 
 export function App() {
   return (
       <div>
         <Header />
         <Routes>
-          <Route path="/" element={<ProductList />} />
-          <Route path="/add" element={<AddProducts />} />
+          <Route path="/" element={<MessageList />} />
         </Routes>
       </div>
   );

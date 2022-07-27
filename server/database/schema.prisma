@@ -8,6 +8,25 @@ generator client {
     output   = "../src/generated/prisma-client-js"
 }
 
+model Message {
+    id        Int        @id @default(autoincrement())
+    text      String
+    likes     Int
+    dislikes  Int
+    createdAt DateTime   @default(now())
+    answers   Answer[]
+}
+
+model Answer {
+    id        Int        @id @default(autoincrement())
+    text      String
+    likes     Int
+    dislikes  Int
+    createdAt DateTime   @default(now())
+    message   Message    @relation(fields: [messageId], references: [id])
+    messageId Int
+}
+
 model Product {
     id      Int    @id @default(autoincrement())
     title   String

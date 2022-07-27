@@ -1,28 +1,14 @@
-const products = async (_parent, args, context, _info) => {
-    const { filter, skip, take, orderBy } = args;
+const messages = async (_parent, args, context, _info) => {
 
-    const where = filter ? {
-        title: filter,
-    } : {};
-
-    const productList = await context.prisma.product.findMany({
-        where,
-        include: {
-            reviews: true,
-        },
-        skip,
-        take,
-        orderBy,
-    });
-
-    const count = await context.prisma.product.count();
+    const messageList = await context.prisma.message.findMany();
+    const count = await context.prisma.message.count();
 
     return {
-        productList,
+        messageList,
         count,
     };
-};
+}
 
 module.exports = {
-    products,
+    messages,
 };
