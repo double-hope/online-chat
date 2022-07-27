@@ -1,23 +1,52 @@
-type Query {
-    info: String!
-    products: [Product!]!
+enum Sort {
+    asc
+    desc
 }
 
-input ProductInput{
+input ProductOrderByInput {
+    title: Sort
+    id: Sort
+}
+
+type Products {
+    productList: [Product!]!
+    count: Int!
+}
+
+type Query {
+    version: String!
+    products(filter: String, skip: Int, take: Int, orderBy: ProductOrderByInput): Products
+    reviews: [Review!]!
+}
+
+input ProductInput {
     title: String!
     price: Float!
 }
 
-type Mutation{
-    createProduct(product: ProductInput!): Product!
+input ReviewInput {
+    text: String!
+    productId: Int!
 }
 
-type Subscription{
+type Mutation {
+    createProduct(product: ProductInput!): Product!
+    createReview(review: ReviewInput!): Review!
+}
+
+type Subscription {
     newProduct: Product
 }
 
-type Product{
-    id: ID!
+type Product {
+    id: Int!
     title: String!
     price: Float!
+    reviews: [Review!]!
+}
+
+type Review {
+    id: Int!
+    text: String!
+    product: Product!
 }
