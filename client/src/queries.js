@@ -7,8 +7,12 @@ export const GET_PRODUCTS = gql`
                 id
                 title
                 price
-
+                reviews {
+                    id
+                    text
+                }
             }
+            count
         }
     }
 `;

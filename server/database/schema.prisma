@@ -9,9 +9,9 @@ generator client {
 }
 
 model Product {
-    id     Int    @id @default(autoincrement())
-    title  String
-    price Float
+    id      Int    @id @default(autoincrement())
+    title   String
+    price   Float
     reviews Review[]
 }
 
