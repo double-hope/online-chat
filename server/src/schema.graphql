@@ -41,9 +41,21 @@ input AnswerInput{
     messageId: Int!
 }
 
+input LikesInput {
+    id: Int!
+    likes: Int!
+}
+
+input DislikesInput {
+    id: Int!
+    dislikes: Int!
+}
+
 type Mutation {
     createMessage(message: MessageInput!): Message!
     createAnswer(answer: AnswerInput!): Answer!
+    updateLikes(message: LikesInput!): Message!
+    updateDislikes(message: DislikesInput!): Message!
 }
 
 type Subscription {

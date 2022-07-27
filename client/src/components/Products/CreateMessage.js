@@ -21,7 +21,7 @@ const CreateMessage = () => {
         }).then(r => console.log(r));
         setText('');
     };
-
+    
     return (
         <div className="enter-message-container">
             <div className="enter-message">
