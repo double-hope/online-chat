@@ -18,8 +18,8 @@ const AnswersList = () => {
             if(message.id == id.id){
                 answers = message.answers;
             }
-        })
-        console.log(answers)
+        });
+
     }
 
     if (loading) {

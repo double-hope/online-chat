@@ -6,14 +6,19 @@ import AnswersList from './Answers/AnswersList';
 import './styles.css';
 import {useQuery} from "@apollo/client";
 import {GET_MESSAGES, NEW_MESSAGE} from "../queries";
-import {orderBy} from "../constants";
+import {orderBy, orderByLikes, orderByDislikes} from "../constants";
+import {Sorting} from "../common/enums/enums";
 
 export function App() {
 
     const [messageData, setMessageData] = useState('');
+    const [sorting, setSorting] = useState(orderBy);
+
 
     const { loading, error, data, subscribeToMore } = useQuery(GET_MESSAGES,{
-        variables: { orderBy },
+        variables: {
+            orderBy: sorting,
+        },
     });
 
     useEffect(() => {
@@ -47,7 +52,7 @@ export function App() {
 
   return (
       <div>
-        <Header setData={setMessageData}/>
+        <Header setData={setMessageData} setSorting={setSorting}/>
         <Routes>
             {messageData
                 ?<Route path="/" element={<MessageList data={messageData}/>} />

@@ -21,7 +21,7 @@ export const GET_MESSAGES = gql`
 
 export const GET_FILTERED_MESSAGES = gql`
     query getMessages($filter: String!, $orderBy: MessageOrderByInput!){
-        messages(filter: $filter,orderBy: $orderBy){
+        messages(filter: $filter, orderBy: $orderBy){
             messageList{
                 id
                 text

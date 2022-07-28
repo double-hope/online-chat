@@ -21,15 +21,51 @@
 .header-text{
     color: white;
 }
-.search{
+.search, .menu{
     color: white;
+    font-size: 20px;
 }
-.search:hover{
+.search:hover, .menu:hover{
     cursor: pointer;
 }
 .search-input{
     display: none;
 }
 .search-input.active {
+    display: inline-block;
+}
+
+.burger-menu{
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+.sort-by{
+    background-color: hsl(208, 50%, 33%);
+    display: none;
+    position: absolute;
+    top: 20px;
+    width: 150px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px black;
+    color: white;
+}
+
+.sort-by ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sort-by ul li{
+    padding: 10px;
+}
+
+.sort-by li:hover{
+    background-color: rgba(0, 0, 0, .2);
+    cursor: pointer;
+}
+.sort-by.activeMenu{
     display: inline-block;
 }
