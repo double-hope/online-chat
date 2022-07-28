@@ -1,14 +1,17 @@
 import React, {useState} from 'react';
 import './Answers.css';
 import {CREATE_ANSWER, GET_MESSAGES} from "../../queries";
-import {orderBy} from "../../constants";
-import {useMutation} from "@apollo/client";
+import {MESSAGES_COUNT, orderBy} from '../../constants';
+import {useMutation} from '@apollo/client';
 
-const updateMessageStore = (messageId) => (cache, { data: { createAnswer } }) => {
+const updateMessageStore = (messageId, page) => (cache, { data: { createAnswer } }) => {
 
     const { messages } = cache.readQuery({
         query: GET_MESSAGES,
-        variables: { orderBy },
+        variables: {
+            skip: page * MESSAGES_COUNT,
+            take: MESSAGES_COUNT,
+            orderBy },
     });
 
     const updatedMessages = messages.messageList.map(item => {
@@ -31,13 +34,13 @@ const updateMessageStore = (messageId) => (cache, { data: { createAnswer } }) =>
     });
 };
 
-const CreateAnswer = ({message, setAnswer}) => {
+const CreateAnswer = ({message, setAnswer, page}) => {
     const [text, setText] = useState('');
 
     const messageId = message.id;
 
     const [createAnswer, { loading, error }] = useMutation(CREATE_ANSWER, {
-        update: updateMessageStore(messageId),
+        update: updateMessageStore(messageId, page),
     });
 
     const sendReply = () => {

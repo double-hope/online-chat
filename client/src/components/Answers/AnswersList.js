@@ -1,16 +1,19 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useParams} from "react-router-dom";
 import {useQuery} from "@apollo/client";
 import {GET_MESSAGES} from "../../queries";
-import {orderBy} from "../../constants";
+import {MESSAGES_COUNT, orderBy} from "../../constants";
 import AnswerItem from "./AnswerItem";
 
-const AnswersList = () => {
+const AnswersList = ({page}) => {
     const id = useParams();
     let answers = [];
 
     const { loading, error, data, subscribeToMore } = useQuery(GET_MESSAGES,{
-        variables: { orderBy },
+        variables: {
+            skip: page * MESSAGES_COUNT,
+            take: MESSAGES_COUNT,
+            orderBy },
     });
 
     if(data){

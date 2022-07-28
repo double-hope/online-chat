@@ -9,3 +9,5 @@ export const orderByLikes = {
 export const orderByDislikes = {
     dislikes: "asc",
 };
+
+export const MESSAGES_COUNT = 20;

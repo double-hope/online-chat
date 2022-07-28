@@ -1,11 +1,14 @@
-import {GET_MESSAGES} from "../queries";
-import {orderBy} from "../constants";
+import {GET_MESSAGES} from '../queries';
+import {MESSAGES_COUNT, orderBy} from '../constants';
 
-const updateDislikesStore = ( messageId ) => (cache, { data: { updateDislikes } })  => {
+const updateDislikesStore = ( messageId, page ) => (cache, { data: { updateDislikes } })  => {
 
     const { messages } = cache.readQuery({
         query: GET_MESSAGES,
-        variables: { orderBy },
+        variables: {
+            skip: page * MESSAGES_COUNT,
+            take: MESSAGES_COUNT,
+            orderBy },
     });
     const updatedLikes = messages.messageList.map(item => {
         if (item.id === messageId) {

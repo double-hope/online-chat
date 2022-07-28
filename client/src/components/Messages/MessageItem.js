@@ -5,7 +5,7 @@ import { useMutation } from '@apollo/client';
 import { updateLikesStore, updateDislikesStore} from '../../helpers/helpers';
 import {Link} from "react-router-dom";
 
-export const MessageItem = ({ message, setAnswer, setAnsweredMessage }) => {
+export const MessageItem = ({ message, setAnswer, setAnsweredMessage, page }) => {
     const [isLiked, setIsLiked] = useState(false);
     const [isDisliked, setIsDisliked] = useState(false);
 
@@ -14,11 +14,11 @@ export const MessageItem = ({ message, setAnswer, setAnsweredMessage }) => {
     let dislikes = message.dislikes;
 
     const [updateLikes, { _loading, _error }] = useMutation(UPDATE_LIKES, {
-        update: updateLikesStore(id),
+        update: updateLikesStore(id, page),
     });
 
     const [updateDislikes, { loading, error }] = useMutation(UPDATE_DISLIKES, {
-        update: updateDislikesStore(id),
+        update: updateDislikesStore(id, page),
     });
 
     const like = () => {
