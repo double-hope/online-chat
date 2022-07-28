@@ -6,7 +6,8 @@
   "scripts": {
     "start:client": "cd client && npm run start",
     "start:server": "cd server && npm run start",
-    "start": "concurrently -k -p \"{name}\" -n \"CLIENT,SERVER\" -c \"green,blue\" \"npm:start:client\" \"npm:start:server\""
+    "start": "concurrently -k -p \"{name}\" -n \"CLIENT,SERVER\" -c \"green,blue\" \"npm:start:client\" \"npm:start:server\"",
+    "postinstall": "(cd client && npm install) && (cd server && npm install) && (npm install)"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
   },
   "homepage": "https://github.com/double-hope/online-chat#readme",
   "dependencies": {
+    "client": "file:client",
     "concurrently": "^7.3.0"
   }
 }
