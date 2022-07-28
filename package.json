@@ -7,7 +7,8 @@
     "start:client": "cd client && npm run start",
     "start:server": "cd server && npm run start",
     "start": "concurrently -k -p \"{name}\" -n \"CLIENT,SERVER\" -c \"green,blue\" \"npm:start:client\" \"npm:start:server\"",
-    "postinstall": "(cd client && npm install) && (cd server && npm install) && (npm install)"
+    "install:client": "cd client && npm install",
+    "install:server": "cd server && npm install"
   },
   "repository": {
     "type": "git",
