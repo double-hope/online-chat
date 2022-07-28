@@ -1,0 +1,135 @@
+.container{
+    display: grid;
+    grid-template-rows: 1fr 100px;
+}
+
+.messages-container {
+    grid-row: 0 / 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.message {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(189, 216, 239, 0.832);
+    margin: 10px;
+    padding: 10px;
+    width: 30%;
+    border: 1px solid hsl(208, 61%, 20%);
+    border-radius: 20px 20px 20px 0;
+    position: relative;
+    box-shadow: 0 0 4px hsl(208, 61%, 20%);
+}
+
+.enter-message-container{
+    background-color: white;
+    grid-row: 1 / 2;
+    padding: 0 10px 10px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.enter-message{
+    background-color: hsl(208, 61%, 20%);
+    width: 70%;
+    padding: 2px;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    position: relative;
+}
+
+
+textarea{
+    padding: 5px;
+    resize: none;
+    width: 90%;
+    border-radius: 10px 0 0 10px;
+    background-color: hsl(208, 50%, 33%);
+    color: white;
+    font-size: 1em;
+}
+#send{
+    width: 10%;
+    border-radius: 0 10px 10px 0;
+    border: 0;
+    background-color: hsl(208, 61%, 20%);
+    color: hsl(208, 59%, 83%);
+    font-size: 1em;
+}
+
+#send:hover, .icon:hover{
+    cursor: pointer;
+}
+
+::placeholder {
+    color: rgba(255, 255, 255, .4);
+    font-size: 1em;
+}
+
+.text-favour{
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    max-width: 80%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.message-id{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.likes-dislikes, .text{
+    padding: 5px;
+    display: flex;
+    justify-content: baseline;
+}
+.icon{
+    font-size: 20px;
+    color: rgba(0, 0, 0, .5);
+}
+.votes{
+    padding: 0 5px;
+    color: rgba(0, 0, 0, .5);
+}
+a, a:visited{
+    text-decoration: none;
+    color: hsl(208, 61%, 20%);
+}
+.link-container{
+    padding: 5px;
+    background-color: hsl(208, 40%, 65%);
+    border-radius: 10px;
+}
+.text{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.more{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin: 0 10px;
+    color: white;
+}
+
+.more-icon{
+    font-size: 20px;
+}

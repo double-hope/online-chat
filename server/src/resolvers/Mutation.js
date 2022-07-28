@@ -1,34 +1,100 @@
-const createProduct = async (_parent, args, context) => {
-    const createdProduct = await context.prisma.product.create({ data: args.product });
-    context.pubsub.publish('NEW_PRODUCT', createdProduct);
-    return createdProduct;
+const createMessage = async (_parent, args, context) => {
+
+    const createdMessage = await context.prisma.message.create({ data: {
+            text: args.message.text,
+            likes: 0,
+            dislikes: 0,
+        },
+    });
+
+    context.pubsub.publish('NEW_MESSAGE', createdMessage);
+    return createdMessage;
 };
 
-const createReview = async (_parent, args, context) => {
-    const { review: { text, productId } } = args;
+const updateLikes = async (_parent, args, context) => {
+    const { message: { likes, id } } = args;
 
-    const isProductExists = await context.prisma.product.findFirst({
+    const isMessageExists = await context.prisma.message.findFirst({
         where: {
-            id: productId,
+            id: id,
         },
         select: { id: true },
     }).then(Boolean);
 
-    if (!isProductExists) {
-        throw new Error(`Product with id ${productId} does not exist`);
+    if (!isMessageExists) {
+        throw new Error(`Product with id ${id} does not exist`);
     }
 
-    return context.prisma.review.create({
+    const updatedLikes = context.prisma.message.update({
+        where: {
+            id: id,
+        },
+        data:{
+            likes: likes,
+        }
+    });
+
+    context.pubsub.publish('CHANGE_LIKES', updatedLikes);
+
+    return updatedLikes;
+}
+
+const updateDislikes = async (_parent, args, context) => {
+    const { message: { dislikes, id } } = args;
+
+    const isMessageExists = await context.prisma.message.findFirst({
+        where: {
+            id: id,
+        },
+        select: { id: true },
+    }).then(Boolean);
+
+    if (!isMessageExists) {
+        throw new Error(`Product with id ${id} does not exist`);
+    }
+
+    const updatedDislikes = context.prisma.message.update({
+        where: {
+            id: id,
+        },
+        data:{
+            dislikes: dislikes,
+        }
+    });
+    context.pubsub.publish('CHANGE_DISLIKES', updatedDislikes);
+
+    return updatedDislikes;
+}
+
+const createAnswer = async (_parent, args, context) => {
+    const { answer: { text, messageId } } = args;
+
+    const isMessageExists = await context.prisma.message.findFirst({
+        where: {
+            id: messageId,
+        },
+        select: { id: true },
+    }).then(Boolean);
+
+    if (!isMessageExists) {
+        throw new Error(`Product with id ${messageId} does not exist`);
+    }
+
+    return context.prisma.answer.create({
         data: {
             text,
-            product: {
-                connect: { id: productId },
+            likes: 0,
+            dislikes: 0,
+            message: {
+                connect: { id: messageId },
             },
         },
     });
 };
 
 module.exports = {
-    createProduct,
-    createReview,
+    createMessage,
+    updateLikes,
+    updateDislikes,
+    createAnswer,
 };

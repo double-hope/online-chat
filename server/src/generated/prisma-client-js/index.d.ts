@@ -13,23 +13,28 @@ type UnwrapTuple<Tuple extends readonly unknown[]> = {
 
 
 /**
- * Model Product
+ * Model Message
  * 
  */
-export type Product = {
+export type Message = {
   id: number
-  title: string
-  price: number
+  text: string
+  likes: number
+  dislikes: number
+  createdAt: Date
 }
 
 /**
- * Model Review
+ * Model Answer
  * 
  */
-export type Review = {
+export type Answer = {
   id: number
   text: string
-  productId: number
+  likes: number
+  dislikes: number
+  createdAt: Date
+  messageId: number
 }
 
 
@@ -40,8 +45,8 @@ export type Review = {
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Products
- * const products = await prisma.product.findMany()
+ * // Fetch zero or more Messages
+ * const messages = await prisma.message.findMany()
  * ```
  *
  * 
@@ -86,8 +91,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Products
-   * const products = await prisma.product.findMany()
+   * // Fetch zero or more Messages
+   * const messages = await prisma.message.findMany()
    * ```
    *
    * 
@@ -174,24 +179,24 @@ export class PrismaClient<
   $transaction<P extends PrismaPromise<any>[]>(arg: [...P]): Promise<UnwrapTuple<P>>;
 
       /**
-   * `prisma.product`: Exposes CRUD operations for the **Product** model.
+   * `prisma.message`: Exposes CRUD operations for the **Message** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Products
-    * const products = await prisma.product.findMany()
+    * // Fetch zero or more Messages
+    * const messages = await prisma.message.findMany()
     * ```
     */
-  get product(): Prisma.ProductDelegate<GlobalReject>;
+  get message(): Prisma.MessageDelegate<GlobalReject>;
 
   /**
-   * `prisma.review`: Exposes CRUD operations for the **Review** model.
+   * `prisma.answer`: Exposes CRUD operations for the **Answer** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Reviews
-    * const reviews = await prisma.review.findMany()
+    * // Fetch zero or more Answers
+    * const answers = await prisma.answer.findMany()
     * ```
     */
-  get review(): Prisma.ReviewDelegate<GlobalReject>;
+  get answer(): Prisma.AnswerDelegate<GlobalReject>;
 }
 
 export namespace Prisma {
@@ -660,8 +665,8 @@ export namespace Prisma {
   }
 
   export const ModelName: {
-    Product: 'Product',
-    Review: 'Review'
+    Message: 'Message',
+    Answer: 'Answer'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -821,35 +826,35 @@ export namespace Prisma {
 
 
   /**
-   * Count Type ProductCountOutputType
+   * Count Type MessageCountOutputType
    */
 
 
-  export type ProductCountOutputType = {
-    reviews: number
+  export type MessageCountOutputType = {
+    answers: number
   }
 
-  export type ProductCountOutputTypeSelect = {
-    reviews?: boolean
+  export type MessageCountOutputTypeSelect = {
+    answers?: boolean
   }
 
-  export type ProductCountOutputTypeGetPayload<
-    S extends boolean | null | undefined | ProductCountOutputTypeArgs,
+  export type MessageCountOutputTypeGetPayload<
+    S extends boolean | null | undefined | MessageCountOutputTypeArgs,
     U = keyof S
       > = S extends true
-        ? ProductCountOutputType
+        ? MessageCountOutputType
     : S extends undefined
     ? never
-    : S extends ProductCountOutputTypeArgs
+    : S extends MessageCountOutputTypeArgs
     ?'include' extends U
-    ? ProductCountOutputType 
+    ? MessageCountOutputType 
     : 'select' extends U
     ? {
     [P in TrueKeys<S['select']>]:
-    P extends keyof ProductCountOutputType ? ProductCountOutputType[P] : never
+    P extends keyof MessageCountOutputType ? MessageCountOutputType[P] : never
   } 
-    : ProductCountOutputType
-  : ProductCountOutputType
+    : MessageCountOutputType
+  : MessageCountOutputType
 
 
 
@@ -857,14 +862,14 @@ export namespace Prisma {
   // Custom InputTypes
 
   /**
-   * ProductCountOutputType without action
+   * MessageCountOutputType without action
    */
-  export type ProductCountOutputTypeArgs = {
+  export type MessageCountOutputTypeArgs = {
     /**
-     * Select specific fields to fetch from the ProductCountOutputType
+     * Select specific fields to fetch from the MessageCountOutputType
      * 
     **/
-    select?: ProductCountOutputTypeSelect | null
+    select?: MessageCountOutputTypeSelect | null
   }
 
 
@@ -874,1288 +879,364 @@ export namespace Prisma {
    */
 
   /**
-   * Model Product
+   * Model Message
    */
 
 
-  export type AggregateProduct = {
-    _count: ProductCountAggregateOutputType | null
-    _avg: ProductAvgAggregateOutputType | null
-    _sum: ProductSumAggregateOutputType | null
-    _min: ProductMinAggregateOutputType | null
-    _max: ProductMaxAggregateOutputType | null
+  export type AggregateMessage = {
+    _count: MessageCountAggregateOutputType | null
+    _avg: MessageAvgAggregateOutputType | null
+    _sum: MessageSumAggregateOutputType | null
+    _min: MessageMinAggregateOutputType | null
+    _max: MessageMaxAggregateOutputType | null
   }
 
-  export type ProductAvgAggregateOutputType = {
+  export type MessageAvgAggregateOutputType = {
     id: number | null
-    price: number | null
+    likes: number | null
+    dislikes: number | null
   }
 
-  export type ProductSumAggregateOutputType = {
+  export type MessageSumAggregateOutputType = {
     id: number | null
-    price: number | null
+    likes: number | null
+    dislikes: number | null
   }
 
-  export type ProductMinAggregateOutputType = {
-    id: number | null
-    title: string | null
-    price: number | null
-  }
-
-  export type ProductMaxAggregateOutputType = {
-    id: number | null
-    title: string | null
-    price: number | null
-  }
-
-  export type ProductCountAggregateOutputType = {
-    id: number
-    title: number
-    price: number
-    _all: number
-  }
-
-
-  export type ProductAvgAggregateInputType = {
-    id?: true
-    price?: true
-  }
-
-  export type ProductSumAggregateInputType = {
-    id?: true
-    price?: true
-  }
-
-  export type ProductMinAggregateInputType = {
-    id?: true
-    title?: true
-    price?: true
-  }
-
-  export type ProductMaxAggregateInputType = {
-    id?: true
-    title?: true
-    price?: true
-  }
-
-  export type ProductCountAggregateInputType = {
-    id?: true
-    title?: true
-    price?: true
-    _all?: true
-  }
-
-  export type ProductAggregateArgs = {
-    /**
-     * Filter which Product to aggregate.
-     * 
-    **/
-    where?: ProductWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Products to fetch.
-     * 
-    **/
-    orderBy?: Enumerable<ProductOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     * 
-    **/
-    cursor?: ProductWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Products from the position of the cursor.
-     * 
-    **/
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Products.
-     * 
-    **/
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Products
-    **/
-    _count?: true | ProductCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: ProductAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: ProductSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: ProductMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: ProductMaxAggregateInputType
-  }
-
-  export type GetProductAggregateType<T extends ProductAggregateArgs> = {
-        [P in keyof T & keyof AggregateProduct]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateProduct[P]>
-      : GetScalarType<T[P], AggregateProduct[P]>
-  }
-
-
-
-
-  export type ProductGroupByArgs = {
-    where?: ProductWhereInput
-    orderBy?: Enumerable<ProductOrderByWithAggregationInput>
-    by: Array<ProductScalarFieldEnum>
-    having?: ProductScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: ProductCountAggregateInputType | true
-    _avg?: ProductAvgAggregateInputType
-    _sum?: ProductSumAggregateInputType
-    _min?: ProductMinAggregateInputType
-    _max?: ProductMaxAggregateInputType
-  }
-
-
-  export type ProductGroupByOutputType = {
-    id: number
-    title: string
-    price: number
-    _count: ProductCountAggregateOutputType | null
-    _avg: ProductAvgAggregateOutputType | null
-    _sum: ProductSumAggregateOutputType | null
-    _min: ProductMinAggregateOutputType | null
-    _max: ProductMaxAggregateOutputType | null
-  }
-
-  type GetProductGroupByPayload<T extends ProductGroupByArgs> = PrismaPromise<
-    Array<
-      PickArray<ProductGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof ProductGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], ProductGroupByOutputType[P]>
-            : GetScalarType<T[P], ProductGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type ProductSelect = {
-    id?: boolean
-    title?: boolean
-    price?: boolean
-    reviews?: boolean | ReviewFindManyArgs
-    _count?: boolean | ProductCountOutputTypeArgs
-  }
-
-  export type ProductInclude = {
-    reviews?: boolean | ReviewFindManyArgs
-    _count?: boolean | ProductCountOutputTypeArgs
-  }
-
-  export type ProductGetPayload<
-    S extends boolean | null | undefined | ProductArgs,
-    U = keyof S
-      > = S extends true
-        ? Product
-    : S extends undefined
-    ? never
-    : S extends ProductArgs | ProductFindManyArgs
-    ?'include' extends U
-    ? Product  & {
-    [P in TrueKeys<S['include']>]:
-        P extends 'reviews' ? Array < ReviewGetPayload<S['include'][P]>>  :
-        P extends '_count' ? ProductCountOutputTypeGetPayload<S['include'][P]> :  never
-  } 
-    : 'select' extends U
-    ? {
-    [P in TrueKeys<S['select']>]:
-        P extends 'reviews' ? Array < ReviewGetPayload<S['select'][P]>>  :
-        P extends '_count' ? ProductCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Product ? Product[P] : never
-  } 
-    : Product
-  : Product
-
-
-  type ProductCountArgs = Merge<
-    Omit<ProductFindManyArgs, 'select' | 'include'> & {
-      select?: ProductCountAggregateInputType | true
-    }
-  >
-
-  export interface ProductDelegate<GlobalRejectSettings> {
-    /**
-     * Find zero or one Product that matches the filter.
-     * @param {ProductFindUniqueArgs} args - Arguments to find a Product
-     * @example
-     * // Get one Product
-     * const product = await prisma.product.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUnique<T extends ProductFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, ProductFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Product'> extends True ? CheckSelect<T, Prisma__ProductClient<Product>, Prisma__ProductClient<ProductGetPayload<T>>> : CheckSelect<T, Prisma__ProductClient<Product | null >, Prisma__ProductClient<ProductGetPayload<T> | null >>
-
-    /**
-     * Find the first Product that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProductFindFirstArgs} args - Arguments to find a Product
-     * @example
-     * // Get one Product
-     * const product = await prisma.product.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirst<T extends ProductFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, ProductFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Product'> extends True ? CheckSelect<T, Prisma__ProductClient<Product>, Prisma__ProductClient<ProductGetPayload<T>>> : CheckSelect<T, Prisma__ProductClient<Product | null >, Prisma__ProductClient<ProductGetPayload<T> | null >>
-
-    /**
-     * Find zero or more Products that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProductFindManyArgs=} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Products
-     * const products = await prisma.product.findMany()
-     * 
-     * // Get first 10 Products
-     * const products = await prisma.product.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const productWithIdOnly = await prisma.product.findMany({ select: { id: true } })
-     * 
-    **/
-    findMany<T extends ProductFindManyArgs>(
-      args?: SelectSubset<T, ProductFindManyArgs>
-    ): CheckSelect<T, PrismaPromise<Array<Product>>, PrismaPromise<Array<ProductGetPayload<T>>>>
-
-    /**
-     * Create a Product.
-     * @param {ProductCreateArgs} args - Arguments to create a Product.
-     * @example
-     * // Create one Product
-     * const Product = await prisma.product.create({
-     *   data: {
-     *     // ... data to create a Product
-     *   }
-     * })
-     * 
-    **/
-    create<T extends ProductCreateArgs>(
-      args: SelectSubset<T, ProductCreateArgs>
-    ): CheckSelect<T, Prisma__ProductClient<Product>, Prisma__ProductClient<ProductGetPayload<T>>>
-
-    /**
-     * Create many Products.
-     *     @param {ProductCreateManyArgs} args - Arguments to create many Products.
-     *     @example
-     *     // Create many Products
-     *     const product = await prisma.product.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
-     *     
-    **/
-    createMany<T extends ProductCreateManyArgs>(
-      args?: SelectSubset<T, ProductCreateManyArgs>
-    ): PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Product.
-     * @param {ProductDeleteArgs} args - Arguments to delete one Product.
-     * @example
-     * // Delete one Product
-     * const Product = await prisma.product.delete({
-     *   where: {
-     *     // ... filter to delete one Product
-     *   }
-     * })
-     * 
-    **/
-    delete<T extends ProductDeleteArgs>(
-      args: SelectSubset<T, ProductDeleteArgs>
-    ): CheckSelect<T, Prisma__ProductClient<Product>, Prisma__ProductClient<ProductGetPayload<T>>>
-
-    /**
-     * Update one Product.
-     * @param {ProductUpdateArgs} args - Arguments to update one Product.
-     * @example
-     * // Update one Product
-     * const product = await prisma.product.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    update<T extends ProductUpdateArgs>(
-      args: SelectSubset<T, ProductUpdateArgs>
-    ): CheckSelect<T, Prisma__ProductClient<Product>, Prisma__ProductClient<ProductGetPayload<T>>>
-
-    /**
-     * Delete zero or more Products.
-     * @param {ProductDeleteManyArgs} args - Arguments to filter Products to delete.
-     * @example
-     * // Delete a few Products
-     * const { count } = await prisma.product.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-    **/
-    deleteMany<T extends ProductDeleteManyArgs>(
-      args?: SelectSubset<T, ProductDeleteManyArgs>
-    ): PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Products.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProductUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Products
-     * const product = await prisma.product.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    updateMany<T extends ProductUpdateManyArgs>(
-      args: SelectSubset<T, ProductUpdateManyArgs>
-    ): PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Product.
-     * @param {ProductUpsertArgs} args - Arguments to update or create a Product.
-     * @example
-     * // Update or create a Product
-     * const product = await prisma.product.upsert({
-     *   create: {
-     *     // ... data to create a Product
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Product we want to update
-     *   }
-     * })
-    **/
-    upsert<T extends ProductUpsertArgs>(
-      args: SelectSubset<T, ProductUpsertArgs>
-    ): CheckSelect<T, Prisma__ProductClient<Product>, Prisma__ProductClient<ProductGetPayload<T>>>
-
-    /**
-     * Find one Product that matches the filter or throw
-     * `NotFoundError` if no matches were found.
-     * @param {ProductFindUniqueOrThrowArgs} args - Arguments to find a Product
-     * @example
-     * // Get one Product
-     * const product = await prisma.product.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUniqueOrThrow<T extends ProductFindUniqueOrThrowArgs>(
-      args?: SelectSubset<T, ProductFindUniqueOrThrowArgs>
-    ): CheckSelect<T, Prisma__ProductClient<Product>, Prisma__ProductClient<ProductGetPayload<T>>>
-
-    /**
-     * Find the first Product that matches the filter or
-     * throw `NotFoundError` if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProductFindFirstOrThrowArgs} args - Arguments to find a Product
-     * @example
-     * // Get one Product
-     * const product = await prisma.product.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirstOrThrow<T extends ProductFindFirstOrThrowArgs>(
-      args?: SelectSubset<T, ProductFindFirstOrThrowArgs>
-    ): CheckSelect<T, Prisma__ProductClient<Product>, Prisma__ProductClient<ProductGetPayload<T>>>
-
-    /**
-     * Count the number of Products.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProductCountArgs} args - Arguments to filter Products to count.
-     * @example
-     * // Count the number of Products
-     * const count = await prisma.product.count({
-     *   where: {
-     *     // ... the filter for the Products we want to count
-     *   }
-     * })
-    **/
-    count<T extends ProductCountArgs>(
-      args?: Subset<T, ProductCountArgs>,
-    ): PrismaPromise<
-      T extends _Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], ProductCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Product.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProductAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends ProductAggregateArgs>(args: Subset<T, ProductAggregateArgs>): PrismaPromise<GetProductAggregateType<T>>
-
-    /**
-     * Group by Product.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProductGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends ProductGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ProductGroupByArgs['orderBy'] }
-        : { orderBy?: ProductGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends TupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, ProductGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProductGroupByPayload<T> : PrismaPromise<InputErrors>
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Product.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export class Prisma__ProductClient<T> implements PrismaPromise<T> {
-    [prisma]: true;
-    private readonly _dmmf;
-    private readonly _fetcher;
-    private readonly _queryType;
-    private readonly _rootField;
-    private readonly _clientMethod;
-    private readonly _args;
-    private readonly _dataPath;
-    private readonly _errorFormat;
-    private readonly _measurePerformance?;
-    private _isList;
-    private _callsite;
-    private _requestPromise?;
-    constructor(_dmmf: runtime.DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
-    readonly [Symbol.toStringTag]: 'PrismaClientPromise';
-
-    reviews<T extends ReviewFindManyArgs = {}>(args?: Subset<T, ReviewFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Review>>, PrismaPromise<Array<ReviewGetPayload<T>>>>;
-
-    private get _document();
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
-  }
-
-  // Custom InputTypes
-
-  /**
-   * Product base type for findUnique actions
-   */
-  export type ProductFindUniqueArgsBase = {
-    /**
-     * Select specific fields to fetch from the Product
-     * 
-    **/
-    select?: ProductSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: ProductInclude | null
-    /**
-     * Filter, which Product to fetch.
-     * 
-    **/
-    where: ProductWhereUniqueInput
-  }
-
-  /**
-   * Product: findUnique
-   */
-  export interface ProductFindUniqueArgs extends ProductFindUniqueArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * Product base type for findFirst actions
-   */
-  export type ProductFindFirstArgsBase = {
-    /**
-     * Select specific fields to fetch from the Product
-     * 
-    **/
-    select?: ProductSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: ProductInclude | null
-    /**
-     * Filter, which Product to fetch.
-     * 
-    **/
-    where?: ProductWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Products to fetch.
-     * 
-    **/
-    orderBy?: Enumerable<ProductOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Products.
-     * 
-    **/
-    cursor?: ProductWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Products from the position of the cursor.
-     * 
-    **/
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Products.
-     * 
-    **/
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Products.
-     * 
-    **/
-    distinct?: Enumerable<ProductScalarFieldEnum>
-  }
-
-  /**
-   * Product: findFirst
-   */
-  export interface ProductFindFirstArgs extends ProductFindFirstArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * Product findMany
-   */
-  export type ProductFindManyArgs = {
-    /**
-     * Select specific fields to fetch from the Product
-     * 
-    **/
-    select?: ProductSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: ProductInclude | null
-    /**
-     * Filter, which Products to fetch.
-     * 
-    **/
-    where?: ProductWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Products to fetch.
-     * 
-    **/
-    orderBy?: Enumerable<ProductOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Products.
-     * 
-    **/
-    cursor?: ProductWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Products from the position of the cursor.
-     * 
-    **/
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Products.
-     * 
-    **/
-    skip?: number
-    distinct?: Enumerable<ProductScalarFieldEnum>
-  }
-
-
-  /**
-   * Product create
-   */
-  export type ProductCreateArgs = {
-    /**
-     * Select specific fields to fetch from the Product
-     * 
-    **/
-    select?: ProductSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: ProductInclude | null
-    /**
-     * The data needed to create a Product.
-     * 
-    **/
-    data: XOR<ProductCreateInput, ProductUncheckedCreateInput>
-  }
-
-
-  /**
-   * Product createMany
-   */
-  export type ProductCreateManyArgs = {
-    /**
-     * The data used to create many Products.
-     * 
-    **/
-    data: Enumerable<ProductCreateManyInput>
-    skipDuplicates?: boolean
-  }
-
-
-  /**
-   * Product update
-   */
-  export type ProductUpdateArgs = {
-    /**
-     * Select specific fields to fetch from the Product
-     * 
-    **/
-    select?: ProductSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: ProductInclude | null
-    /**
-     * The data needed to update a Product.
-     * 
-    **/
-    data: XOR<ProductUpdateInput, ProductUncheckedUpdateInput>
-    /**
-     * Choose, which Product to update.
-     * 
-    **/
-    where: ProductWhereUniqueInput
-  }
-
-
-  /**
-   * Product updateMany
-   */
-  export type ProductUpdateManyArgs = {
-    /**
-     * The data used to update Products.
-     * 
-    **/
-    data: XOR<ProductUpdateManyMutationInput, ProductUncheckedUpdateManyInput>
-    /**
-     * Filter which Products to update
-     * 
-    **/
-    where?: ProductWhereInput
-  }
-
-
-  /**
-   * Product upsert
-   */
-  export type ProductUpsertArgs = {
-    /**
-     * Select specific fields to fetch from the Product
-     * 
-    **/
-    select?: ProductSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: ProductInclude | null
-    /**
-     * The filter to search for the Product to update in case it exists.
-     * 
-    **/
-    where: ProductWhereUniqueInput
-    /**
-     * In case the Product found by the `where` argument doesn't exist, create a new Product with this data.
-     * 
-    **/
-    create: XOR<ProductCreateInput, ProductUncheckedCreateInput>
-    /**
-     * In case the Product was found with the provided `where` argument, update it with this data.
-     * 
-    **/
-    update: XOR<ProductUpdateInput, ProductUncheckedUpdateInput>
-  }
-
-
-  /**
-   * Product delete
-   */
-  export type ProductDeleteArgs = {
-    /**
-     * Select specific fields to fetch from the Product
-     * 
-    **/
-    select?: ProductSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: ProductInclude | null
-    /**
-     * Filter which Product to delete.
-     * 
-    **/
-    where: ProductWhereUniqueInput
-  }
-
-
-  /**
-   * Product deleteMany
-   */
-  export type ProductDeleteManyArgs = {
-    /**
-     * Filter which Products to delete
-     * 
-    **/
-    where?: ProductWhereInput
-  }
-
-
-  /**
-   * Product: findUniqueOrThrow
-   */
-  export type ProductFindUniqueOrThrowArgs = ProductFindUniqueArgsBase
-      
-
-  /**
-   * Product: findFirstOrThrow
-   */
-  export type ProductFindFirstOrThrowArgs = ProductFindFirstArgsBase
-      
-
-  /**
-   * Product without action
-   */
-  export type ProductArgs = {
-    /**
-     * Select specific fields to fetch from the Product
-     * 
-    **/
-    select?: ProductSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: ProductInclude | null
-  }
-
-
-
-  /**
-   * Model Review
-   */
-
-
-  export type AggregateReview = {
-    _count: ReviewCountAggregateOutputType | null
-    _avg: ReviewAvgAggregateOutputType | null
-    _sum: ReviewSumAggregateOutputType | null
-    _min: ReviewMinAggregateOutputType | null
-    _max: ReviewMaxAggregateOutputType | null
-  }
-
-  export type ReviewAvgAggregateOutputType = {
-    id: number | null
-    productId: number | null
-  }
-
-  export type ReviewSumAggregateOutputType = {
-    id: number | null
-    productId: number | null
-  }
-
-  export type ReviewMinAggregateOutputType = {
+  export type MessageMinAggregateOutputType = {
     id: number | null
     text: string | null
-    productId: number | null
+    likes: number | null
+    dislikes: number | null
+    createdAt: Date | null
   }
 
-  export type ReviewMaxAggregateOutputType = {
+  export type MessageMaxAggregateOutputType = {
     id: number | null
     text: string | null
-    productId: number | null
+    likes: number | null
+    dislikes: number | null
+    createdAt: Date | null
   }
 
-  export type ReviewCountAggregateOutputType = {
+  export type MessageCountAggregateOutputType = {
     id: number
     text: number
-    productId: number
+    likes: number
+    dislikes: number
+    createdAt: number
     _all: number
   }
 
 
-  export type ReviewAvgAggregateInputType = {
+  export type MessageAvgAggregateInputType = {
     id?: true
-    productId?: true
+    likes?: true
+    dislikes?: true
   }
 
-  export type ReviewSumAggregateInputType = {
+  export type MessageSumAggregateInputType = {
     id?: true
-    productId?: true
+    likes?: true
+    dislikes?: true
   }
 
-  export type ReviewMinAggregateInputType = {
+  export type MessageMinAggregateInputType = {
     id?: true
     text?: true
-    productId?: true
+    likes?: true
+    dislikes?: true
+    createdAt?: true
   }
 
-  export type ReviewMaxAggregateInputType = {
+  export type MessageMaxAggregateInputType = {
     id?: true
     text?: true
-    productId?: true
+    likes?: true
+    dislikes?: true
+    createdAt?: true
   }
 
-  export type ReviewCountAggregateInputType = {
+  export type MessageCountAggregateInputType = {
     id?: true
     text?: true
-    productId?: true
+    likes?: true
+    dislikes?: true
+    createdAt?: true
     _all?: true
   }
 
-  export type ReviewAggregateArgs = {
+  export type MessageAggregateArgs = {
     /**
-     * Filter which Review to aggregate.
+     * Filter which Message to aggregate.
      * 
     **/
-    where?: ReviewWhereInput
+    where?: MessageWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Reviews to fetch.
+     * Determine the order of Messages to fetch.
      * 
     **/
-    orderBy?: Enumerable<ReviewOrderByWithRelationInput>
+    orderBy?: Enumerable<MessageOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      * 
     **/
-    cursor?: ReviewWhereUniqueInput
+    cursor?: MessageWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Reviews from the position of the cursor.
+     * Take `±n` Messages from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Reviews.
+     * Skip the first `n` Messages.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Reviews
+     * Count returned Messages
     **/
-    _count?: true | ReviewCountAggregateInputType
+    _count?: true | MessageCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: ReviewAvgAggregateInputType
+    _avg?: MessageAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: ReviewSumAggregateInputType
+    _sum?: MessageSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: ReviewMinAggregateInputType
+    _min?: MessageMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: ReviewMaxAggregateInputType
+    _max?: MessageMaxAggregateInputType
   }
 
-  export type GetReviewAggregateType<T extends ReviewAggregateArgs> = {
-        [P in keyof T & keyof AggregateReview]: P extends '_count' | 'count'
+  export type GetMessageAggregateType<T extends MessageAggregateArgs> = {
+        [P in keyof T & keyof AggregateMessage]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateReview[P]>
-      : GetScalarType<T[P], AggregateReview[P]>
+        : GetScalarType<T[P], AggregateMessage[P]>
+      : GetScalarType<T[P], AggregateMessage[P]>
   }
 
 
 
 
-  export type ReviewGroupByArgs = {
-    where?: ReviewWhereInput
-    orderBy?: Enumerable<ReviewOrderByWithAggregationInput>
-    by: Array<ReviewScalarFieldEnum>
-    having?: ReviewScalarWhereWithAggregatesInput
+  export type MessageGroupByArgs = {
+    where?: MessageWhereInput
+    orderBy?: Enumerable<MessageOrderByWithAggregationInput>
+    by: Array<MessageScalarFieldEnum>
+    having?: MessageScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: ReviewCountAggregateInputType | true
-    _avg?: ReviewAvgAggregateInputType
-    _sum?: ReviewSumAggregateInputType
-    _min?: ReviewMinAggregateInputType
-    _max?: ReviewMaxAggregateInputType
+    _count?: MessageCountAggregateInputType | true
+    _avg?: MessageAvgAggregateInputType
+    _sum?: MessageSumAggregateInputType
+    _min?: MessageMinAggregateInputType
+    _max?: MessageMaxAggregateInputType
   }
 
 
-  export type ReviewGroupByOutputType = {
+  export type MessageGroupByOutputType = {
     id: number
     text: string
-    productId: number
-    _count: ReviewCountAggregateOutputType | null
-    _avg: ReviewAvgAggregateOutputType | null
-    _sum: ReviewSumAggregateOutputType | null
-    _min: ReviewMinAggregateOutputType | null
-    _max: ReviewMaxAggregateOutputType | null
+    likes: number
+    dislikes: number
+    createdAt: Date
+    _count: MessageCountAggregateOutputType | null
+    _avg: MessageAvgAggregateOutputType | null
+    _sum: MessageSumAggregateOutputType | null
+    _min: MessageMinAggregateOutputType | null
+    _max: MessageMaxAggregateOutputType | null
   }
 
-  type GetReviewGroupByPayload<T extends ReviewGroupByArgs> = PrismaPromise<
+  type GetMessageGroupByPayload<T extends MessageGroupByArgs> = PrismaPromise<
     Array<
-      PickArray<ReviewGroupByOutputType, T['by']> &
+      PickArray<MessageGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof ReviewGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof MessageGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], ReviewGroupByOutputType[P]>
-            : GetScalarType<T[P], ReviewGroupByOutputType[P]>
+              : GetScalarType<T[P], MessageGroupByOutputType[P]>
+            : GetScalarType<T[P], MessageGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type ReviewSelect = {
+  export type MessageSelect = {
     id?: boolean
     text?: boolean
-    product?: boolean | ProductArgs
-    productId?: boolean
+    likes?: boolean
+    dislikes?: boolean
+    createdAt?: boolean
+    answers?: boolean | AnswerFindManyArgs
+    _count?: boolean | MessageCountOutputTypeArgs
   }
 
-  export type ReviewInclude = {
-    product?: boolean | ProductArgs
+  export type MessageInclude = {
+    answers?: boolean | AnswerFindManyArgs
+    _count?: boolean | MessageCountOutputTypeArgs
   }
 
-  export type ReviewGetPayload<
-    S extends boolean | null | undefined | ReviewArgs,
+  export type MessageGetPayload<
+    S extends boolean | null | undefined | MessageArgs,
     U = keyof S
       > = S extends true
-        ? Review
+        ? Message
     : S extends undefined
     ? never
-    : S extends ReviewArgs | ReviewFindManyArgs
+    : S extends MessageArgs | MessageFindManyArgs
     ?'include' extends U
-    ? Review  & {
+    ? Message  & {
     [P in TrueKeys<S['include']>]:
-        P extends 'product' ? ProductGetPayload<S['include'][P]> :  never
+        P extends 'answers' ? Array < AnswerGetPayload<S['include'][P]>>  :
+        P extends '_count' ? MessageCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : 'select' extends U
     ? {
     [P in TrueKeys<S['select']>]:
-        P extends 'product' ? ProductGetPayload<S['select'][P]> :  P extends keyof Review ? Review[P] : never
+        P extends 'answers' ? Array < AnswerGetPayload<S['select'][P]>>  :
+        P extends '_count' ? MessageCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Message ? Message[P] : never
   } 
-    : Review
-  : Review
+    : Message
+  : Message
 
 
-  type ReviewCountArgs = Merge<
-    Omit<ReviewFindManyArgs, 'select' | 'include'> & {
-      select?: ReviewCountAggregateInputType | true
+  type MessageCountArgs = Merge<
+    Omit<MessageFindManyArgs, 'select' | 'include'> & {
+      select?: MessageCountAggregateInputType | true
     }
   >
 
-  export interface ReviewDelegate<GlobalRejectSettings> {
+  export interface MessageDelegate<GlobalRejectSettings> {
     /**
-     * Find zero or one Review that matches the filter.
-     * @param {ReviewFindUniqueArgs} args - Arguments to find a Review
+     * Find zero or one Message that matches the filter.
+     * @param {MessageFindUniqueArgs} args - Arguments to find a Message
      * @example
-     * // Get one Review
-     * const review = await prisma.review.findUnique({
+     * // Get one Message
+     * const message = await prisma.message.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findUnique<T extends ReviewFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, ReviewFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Review'> extends True ? CheckSelect<T, Prisma__ReviewClient<Review>, Prisma__ReviewClient<ReviewGetPayload<T>>> : CheckSelect<T, Prisma__ReviewClient<Review | null >, Prisma__ReviewClient<ReviewGetPayload<T> | null >>
+    findUnique<T extends MessageFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, MessageFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Message'> extends True ? CheckSelect<T, Prisma__MessageClient<Message>, Prisma__MessageClient<MessageGetPayload<T>>> : CheckSelect<T, Prisma__MessageClient<Message | null >, Prisma__MessageClient<MessageGetPayload<T> | null >>
 
     /**
-     * Find the first Review that matches the filter.
+     * Find the first Message that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ReviewFindFirstArgs} args - Arguments to find a Review
+     * @param {MessageFindFirstArgs} args - Arguments to find a Message
      * @example
-     * // Get one Review
-     * const review = await prisma.review.findFirst({
+     * // Get one Message
+     * const message = await prisma.message.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findFirst<T extends ReviewFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, ReviewFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Review'> extends True ? CheckSelect<T, Prisma__ReviewClient<Review>, Prisma__ReviewClient<ReviewGetPayload<T>>> : CheckSelect<T, Prisma__ReviewClient<Review | null >, Prisma__ReviewClient<ReviewGetPayload<T> | null >>
+    findFirst<T extends MessageFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, MessageFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Message'> extends True ? CheckSelect<T, Prisma__MessageClient<Message>, Prisma__MessageClient<MessageGetPayload<T>>> : CheckSelect<T, Prisma__MessageClient<Message | null >, Prisma__MessageClient<MessageGetPayload<T> | null >>
 
     /**
-     * Find zero or more Reviews that matches the filter.
+     * Find zero or more Messages that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ReviewFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {MessageFindManyArgs=} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Reviews
-     * const reviews = await prisma.review.findMany()
+     * // Get all Messages
+     * const messages = await prisma.message.findMany()
      * 
-     * // Get first 10 Reviews
-     * const reviews = await prisma.review.findMany({ take: 10 })
+     * // Get first 10 Messages
+     * const messages = await prisma.message.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const reviewWithIdOnly = await prisma.review.findMany({ select: { id: true } })
+     * const messageWithIdOnly = await prisma.message.findMany({ select: { id: true } })
      * 
     **/
-    findMany<T extends ReviewFindManyArgs>(
-      args?: SelectSubset<T, ReviewFindManyArgs>
-    ): CheckSelect<T, PrismaPromise<Array<Review>>, PrismaPromise<Array<ReviewGetPayload<T>>>>
+    findMany<T extends MessageFindManyArgs>(
+      args?: SelectSubset<T, MessageFindManyArgs>
+    ): CheckSelect<T, PrismaPromise<Array<Message>>, PrismaPromise<Array<MessageGetPayload<T>>>>
 
     /**
-     * Create a Review.
-     * @param {ReviewCreateArgs} args - Arguments to create a Review.
+     * Create a Message.
+     * @param {MessageCreateArgs} args - Arguments to create a Message.
      * @example
-     * // Create one Review
-     * const Review = await prisma.review.create({
+     * // Create one Message
+     * const Message = await prisma.message.create({
      *   data: {
-     *     // ... data to create a Review
+     *     // ... data to create a Message
      *   }
      * })
      * 
     **/
-    create<T extends ReviewCreateArgs>(
-      args: SelectSubset<T, ReviewCreateArgs>
-    ): CheckSelect<T, Prisma__ReviewClient<Review>, Prisma__ReviewClient<ReviewGetPayload<T>>>
+    create<T extends MessageCreateArgs>(
+      args: SelectSubset<T, MessageCreateArgs>
+    ): CheckSelect<T, Prisma__MessageClient<Message>, Prisma__MessageClient<MessageGetPayload<T>>>
 
     /**
-     * Create many Reviews.
-     *     @param {ReviewCreateManyArgs} args - Arguments to create many Reviews.
+     * Create many Messages.
+     *     @param {MessageCreateManyArgs} args - Arguments to create many Messages.
      *     @example
-     *     // Create many Reviews
-     *     const review = await prisma.review.createMany({
+     *     // Create many Messages
+     *     const message = await prisma.message.createMany({
      *       data: {
      *         // ... provide data here
      *       }
      *     })
      *     
     **/
-    createMany<T extends ReviewCreateManyArgs>(
-      args?: SelectSubset<T, ReviewCreateManyArgs>
+    createMany<T extends MessageCreateManyArgs>(
+      args?: SelectSubset<T, MessageCreateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Delete a Review.
-     * @param {ReviewDeleteArgs} args - Arguments to delete one Review.
+     * Delete a Message.
+     * @param {MessageDeleteArgs} args - Arguments to delete one Message.
      * @example
-     * // Delete one Review
-     * const Review = await prisma.review.delete({
+     * // Delete one Message
+     * const Message = await prisma.message.delete({
      *   where: {
-     *     // ... filter to delete one Review
+     *     // ... filter to delete one Message
      *   }
      * })
      * 
     **/
-    delete<T extends ReviewDeleteArgs>(
-      args: SelectSubset<T, ReviewDeleteArgs>
-    ): CheckSelect<T, Prisma__ReviewClient<Review>, Prisma__ReviewClient<ReviewGetPayload<T>>>
+    delete<T extends MessageDeleteArgs>(
+      args: SelectSubset<T, MessageDeleteArgs>
+    ): CheckSelect<T, Prisma__MessageClient<Message>, Prisma__MessageClient<MessageGetPayload<T>>>
 
     /**
-     * Update one Review.
-     * @param {ReviewUpdateArgs} args - Arguments to update one Review.
+     * Update one Message.
+     * @param {MessageUpdateArgs} args - Arguments to update one Message.
      * @example
-     * // Update one Review
-     * const review = await prisma.review.update({
+     * // Update one Message
+     * const message = await prisma.message.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2165,34 +1246,34 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends ReviewUpdateArgs>(
-      args: SelectSubset<T, ReviewUpdateArgs>
-    ): CheckSelect<T, Prisma__ReviewClient<Review>, Prisma__ReviewClient<ReviewGetPayload<T>>>
+    update<T extends MessageUpdateArgs>(
+      args: SelectSubset<T, MessageUpdateArgs>
+    ): CheckSelect<T, Prisma__MessageClient<Message>, Prisma__MessageClient<MessageGetPayload<T>>>
 
     /**
-     * Delete zero or more Reviews.
-     * @param {ReviewDeleteManyArgs} args - Arguments to filter Reviews to delete.
+     * Delete zero or more Messages.
+     * @param {MessageDeleteManyArgs} args - Arguments to filter Messages to delete.
      * @example
-     * // Delete a few Reviews
-     * const { count } = await prisma.review.deleteMany({
+     * // Delete a few Messages
+     * const { count } = await prisma.message.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
     **/
-    deleteMany<T extends ReviewDeleteManyArgs>(
-      args?: SelectSubset<T, ReviewDeleteManyArgs>
+    deleteMany<T extends MessageDeleteManyArgs>(
+      args?: SelectSubset<T, MessageDeleteManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Reviews.
+     * Update zero or more Messages.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ReviewUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {MessageUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Reviews
-     * const review = await prisma.review.updateMany({
+     * // Update many Messages
+     * const message = await prisma.message.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2202,93 +1283,93 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends ReviewUpdateManyArgs>(
-      args: SelectSubset<T, ReviewUpdateManyArgs>
+    updateMany<T extends MessageUpdateManyArgs>(
+      args: SelectSubset<T, MessageUpdateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one Review.
-     * @param {ReviewUpsertArgs} args - Arguments to update or create a Review.
+     * Create or update one Message.
+     * @param {MessageUpsertArgs} args - Arguments to update or create a Message.
      * @example
-     * // Update or create a Review
-     * const review = await prisma.review.upsert({
+     * // Update or create a Message
+     * const message = await prisma.message.upsert({
      *   create: {
-     *     // ... data to create a Review
+     *     // ... data to create a Message
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Review we want to update
+     *     // ... the filter for the Message we want to update
      *   }
      * })
     **/
-    upsert<T extends ReviewUpsertArgs>(
-      args: SelectSubset<T, ReviewUpsertArgs>
-    ): CheckSelect<T, Prisma__ReviewClient<Review>, Prisma__ReviewClient<ReviewGetPayload<T>>>
+    upsert<T extends MessageUpsertArgs>(
+      args: SelectSubset<T, MessageUpsertArgs>
+    ): CheckSelect<T, Prisma__MessageClient<Message>, Prisma__MessageClient<MessageGetPayload<T>>>
 
     /**
-     * Find one Review that matches the filter or throw
+     * Find one Message that matches the filter or throw
      * `NotFoundError` if no matches were found.
-     * @param {ReviewFindUniqueOrThrowArgs} args - Arguments to find a Review
+     * @param {MessageFindUniqueOrThrowArgs} args - Arguments to find a Message
      * @example
-     * // Get one Review
-     * const review = await prisma.review.findUniqueOrThrow({
+     * // Get one Message
+     * const message = await prisma.message.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findUniqueOrThrow<T extends ReviewFindUniqueOrThrowArgs>(
-      args?: SelectSubset<T, ReviewFindUniqueOrThrowArgs>
-    ): CheckSelect<T, Prisma__ReviewClient<Review>, Prisma__ReviewClient<ReviewGetPayload<T>>>
+    findUniqueOrThrow<T extends MessageFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, MessageFindUniqueOrThrowArgs>
+    ): CheckSelect<T, Prisma__MessageClient<Message>, Prisma__MessageClient<MessageGetPayload<T>>>
 
     /**
-     * Find the first Review that matches the filter or
+     * Find the first Message that matches the filter or
      * throw `NotFoundError` if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ReviewFindFirstOrThrowArgs} args - Arguments to find a Review
+     * @param {MessageFindFirstOrThrowArgs} args - Arguments to find a Message
      * @example
-     * // Get one Review
-     * const review = await prisma.review.findFirstOrThrow({
+     * // Get one Message
+     * const message = await prisma.message.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findFirstOrThrow<T extends ReviewFindFirstOrThrowArgs>(
-      args?: SelectSubset<T, ReviewFindFirstOrThrowArgs>
-    ): CheckSelect<T, Prisma__ReviewClient<Review>, Prisma__ReviewClient<ReviewGetPayload<T>>>
+    findFirstOrThrow<T extends MessageFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, MessageFindFirstOrThrowArgs>
+    ): CheckSelect<T, Prisma__MessageClient<Message>, Prisma__MessageClient<MessageGetPayload<T>>>
 
     /**
-     * Count the number of Reviews.
+     * Count the number of Messages.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ReviewCountArgs} args - Arguments to filter Reviews to count.
+     * @param {MessageCountArgs} args - Arguments to filter Messages to count.
      * @example
-     * // Count the number of Reviews
-     * const count = await prisma.review.count({
+     * // Count the number of Messages
+     * const count = await prisma.message.count({
      *   where: {
-     *     // ... the filter for the Reviews we want to count
+     *     // ... the filter for the Messages we want to count
      *   }
      * })
     **/
-    count<T extends ReviewCountArgs>(
-      args?: Subset<T, ReviewCountArgs>,
+    count<T extends MessageCountArgs>(
+      args?: Subset<T, MessageCountArgs>,
     ): PrismaPromise<
       T extends _Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], ReviewCountAggregateOutputType>
+          : GetScalarType<T['select'], MessageCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Review.
+     * Allows you to perform aggregations operations on a Message.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ReviewAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {MessageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -2308,13 +1389,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends ReviewAggregateArgs>(args: Subset<T, ReviewAggregateArgs>): PrismaPromise<GetReviewAggregateType<T>>
+    aggregate<T extends MessageAggregateArgs>(args: Subset<T, MessageAggregateArgs>): PrismaPromise<GetMessageAggregateType<T>>
 
     /**
-     * Group by Review.
+     * Group by Message.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ReviewGroupByArgs} args - Group by arguments.
+     * @param {MessageGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -2329,14 +1410,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends ReviewGroupByArgs,
+      T extends MessageGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ReviewGroupByArgs['orderBy'] }
-        : { orderBy?: ReviewGroupByArgs['orderBy'] },
+        ? { orderBy: MessageGroupByArgs['orderBy'] }
+        : { orderBy?: MessageGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends TupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -2385,16 +1466,16 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, ReviewGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetReviewGroupByPayload<T> : PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, MessageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMessageGroupByPayload<T> : PrismaPromise<InputErrors>
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Review.
+   * The delegate class that acts as a "Promise-like" for Message.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__ReviewClient<T> implements PrismaPromise<T> {
+  export class Prisma__MessageClient<T> implements PrismaPromise<T> {
     [prisma]: true;
     private readonly _dmmf;
     private readonly _fetcher;
@@ -2411,7 +1492,7 @@ export namespace Prisma {
     constructor(_dmmf: runtime.DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
     readonly [Symbol.toStringTag]: 'PrismaClientPromise';
 
-    product<T extends ProductArgs = {}>(args?: Subset<T, ProductArgs>): CheckSelect<T, Prisma__ProductClient<Product | null >, Prisma__ProductClient<ProductGetPayload<T> | null >>;
+    answers<T extends AnswerFindManyArgs = {}>(args?: Subset<T, AnswerFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Answer>>, PrismaPromise<Array<AnswerGetPayload<T>>>>;
 
     private get _document();
     /**
@@ -2439,30 +1520,30 @@ export namespace Prisma {
   // Custom InputTypes
 
   /**
-   * Review base type for findUnique actions
+   * Message base type for findUnique actions
    */
-  export type ReviewFindUniqueArgsBase = {
+  export type MessageFindUniqueArgsBase = {
     /**
-     * Select specific fields to fetch from the Review
+     * Select specific fields to fetch from the Message
      * 
     **/
-    select?: ReviewSelect | null
+    select?: MessageSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ReviewInclude | null
+    include?: MessageInclude | null
     /**
-     * Filter, which Review to fetch.
+     * Filter, which Message to fetch.
      * 
     **/
-    where: ReviewWhereUniqueInput
+    where: MessageWhereUniqueInput
   }
 
   /**
-   * Review: findUnique
+   * Message: findUnique
    */
-  export interface ReviewFindUniqueArgs extends ReviewFindUniqueArgsBase {
+  export interface MessageFindUniqueArgs extends MessageFindUniqueArgsBase {
    /**
     * Throw an Error if query returns no results
     * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
@@ -2472,65 +1553,65 @@ export namespace Prisma {
       
 
   /**
-   * Review base type for findFirst actions
+   * Message base type for findFirst actions
    */
-  export type ReviewFindFirstArgsBase = {
+  export type MessageFindFirstArgsBase = {
     /**
-     * Select specific fields to fetch from the Review
+     * Select specific fields to fetch from the Message
      * 
     **/
-    select?: ReviewSelect | null
+    select?: MessageSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ReviewInclude | null
+    include?: MessageInclude | null
     /**
-     * Filter, which Review to fetch.
+     * Filter, which Message to fetch.
      * 
     **/
-    where?: ReviewWhereInput
+    where?: MessageWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Reviews to fetch.
+     * Determine the order of Messages to fetch.
      * 
     **/
-    orderBy?: Enumerable<ReviewOrderByWithRelationInput>
+    orderBy?: Enumerable<MessageOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Reviews.
+     * Sets the position for searching for Messages.
      * 
     **/
-    cursor?: ReviewWhereUniqueInput
+    cursor?: MessageWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Reviews from the position of the cursor.
+     * Take `±n` Messages from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Reviews.
+     * Skip the first `n` Messages.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Reviews.
+     * Filter by unique combinations of Messages.
      * 
     **/
-    distinct?: Enumerable<ReviewScalarFieldEnum>
+    distinct?: Enumerable<MessageScalarFieldEnum>
   }
 
   /**
-   * Review: findFirst
+   * Message: findFirst
    */
-  export interface ReviewFindFirstArgs extends ReviewFindFirstArgsBase {
+  export interface MessageFindFirstArgs extends MessageFindFirstArgsBase {
    /**
     * Throw an Error if query returns no results
     * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
@@ -2540,227 +1621,1203 @@ export namespace Prisma {
       
 
   /**
-   * Review findMany
+   * Message findMany
    */
-  export type ReviewFindManyArgs = {
+  export type MessageFindManyArgs = {
     /**
-     * Select specific fields to fetch from the Review
+     * Select specific fields to fetch from the Message
      * 
     **/
-    select?: ReviewSelect | null
+    select?: MessageSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ReviewInclude | null
+    include?: MessageInclude | null
     /**
-     * Filter, which Reviews to fetch.
+     * Filter, which Messages to fetch.
      * 
     **/
-    where?: ReviewWhereInput
+    where?: MessageWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Reviews to fetch.
+     * Determine the order of Messages to fetch.
      * 
     **/
-    orderBy?: Enumerable<ReviewOrderByWithRelationInput>
+    orderBy?: Enumerable<MessageOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Reviews.
+     * Sets the position for listing Messages.
      * 
     **/
-    cursor?: ReviewWhereUniqueInput
+    cursor?: MessageWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Reviews from the position of the cursor.
+     * Take `±n` Messages from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Reviews.
+     * Skip the first `n` Messages.
      * 
     **/
     skip?: number
-    distinct?: Enumerable<ReviewScalarFieldEnum>
+    distinct?: Enumerable<MessageScalarFieldEnum>
   }
 
 
   /**
-   * Review create
+   * Message create
    */
-  export type ReviewCreateArgs = {
+  export type MessageCreateArgs = {
     /**
-     * Select specific fields to fetch from the Review
+     * Select specific fields to fetch from the Message
      * 
     **/
-    select?: ReviewSelect | null
+    select?: MessageSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ReviewInclude | null
+    include?: MessageInclude | null
     /**
-     * The data needed to create a Review.
+     * The data needed to create a Message.
      * 
     **/
-    data: XOR<ReviewCreateInput, ReviewUncheckedCreateInput>
+    data: XOR<MessageCreateInput, MessageUncheckedCreateInput>
   }
 
 
   /**
-   * Review createMany
+   * Message createMany
    */
-  export type ReviewCreateManyArgs = {
+  export type MessageCreateManyArgs = {
     /**
-     * The data used to create many Reviews.
+     * The data used to create many Messages.
      * 
     **/
-    data: Enumerable<ReviewCreateManyInput>
+    data: Enumerable<MessageCreateManyInput>
     skipDuplicates?: boolean
   }
 
 
   /**
-   * Review update
+   * Message update
    */
-  export type ReviewUpdateArgs = {
+  export type MessageUpdateArgs = {
     /**
-     * Select specific fields to fetch from the Review
+     * Select specific fields to fetch from the Message
      * 
     **/
-    select?: ReviewSelect | null
+    select?: MessageSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ReviewInclude | null
+    include?: MessageInclude | null
     /**
-     * The data needed to update a Review.
+     * The data needed to update a Message.
      * 
     **/
-    data: XOR<ReviewUpdateInput, ReviewUncheckedUpdateInput>
+    data: XOR<MessageUpdateInput, MessageUncheckedUpdateInput>
     /**
-     * Choose, which Review to update.
+     * Choose, which Message to update.
      * 
     **/
-    where: ReviewWhereUniqueInput
+    where: MessageWhereUniqueInput
   }
 
 
   /**
-   * Review updateMany
+   * Message updateMany
    */
-  export type ReviewUpdateManyArgs = {
+  export type MessageUpdateManyArgs = {
     /**
-     * The data used to update Reviews.
+     * The data used to update Messages.
      * 
     **/
-    data: XOR<ReviewUpdateManyMutationInput, ReviewUncheckedUpdateManyInput>
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyInput>
     /**
-     * Filter which Reviews to update
+     * Filter which Messages to update
      * 
     **/
-    where?: ReviewWhereInput
+    where?: MessageWhereInput
   }
 
 
   /**
-   * Review upsert
+   * Message upsert
    */
-  export type ReviewUpsertArgs = {
+  export type MessageUpsertArgs = {
     /**
-     * Select specific fields to fetch from the Review
+     * Select specific fields to fetch from the Message
      * 
     **/
-    select?: ReviewSelect | null
+    select?: MessageSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ReviewInclude | null
+    include?: MessageInclude | null
     /**
-     * The filter to search for the Review to update in case it exists.
+     * The filter to search for the Message to update in case it exists.
      * 
     **/
-    where: ReviewWhereUniqueInput
+    where: MessageWhereUniqueInput
     /**
-     * In case the Review found by the `where` argument doesn't exist, create a new Review with this data.
+     * In case the Message found by the `where` argument doesn't exist, create a new Message with this data.
      * 
     **/
-    create: XOR<ReviewCreateInput, ReviewUncheckedCreateInput>
+    create: XOR<MessageCreateInput, MessageUncheckedCreateInput>
     /**
-     * In case the Review was found with the provided `where` argument, update it with this data.
+     * In case the Message was found with the provided `where` argument, update it with this data.
      * 
     **/
-    update: XOR<ReviewUpdateInput, ReviewUncheckedUpdateInput>
+    update: XOR<MessageUpdateInput, MessageUncheckedUpdateInput>
   }
 
 
   /**
-   * Review delete
+   * Message delete
    */
-  export type ReviewDeleteArgs = {
+  export type MessageDeleteArgs = {
     /**
-     * Select specific fields to fetch from the Review
+     * Select specific fields to fetch from the Message
      * 
     **/
-    select?: ReviewSelect | null
+    select?: MessageSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ReviewInclude | null
+    include?: MessageInclude | null
     /**
-     * Filter which Review to delete.
+     * Filter which Message to delete.
      * 
     **/
-    where: ReviewWhereUniqueInput
+    where: MessageWhereUniqueInput
   }
 
 
   /**
-   * Review deleteMany
+   * Message deleteMany
    */
-  export type ReviewDeleteManyArgs = {
+  export type MessageDeleteManyArgs = {
     /**
-     * Filter which Reviews to delete
+     * Filter which Messages to delete
      * 
     **/
-    where?: ReviewWhereInput
+    where?: MessageWhereInput
   }
 
 
   /**
-   * Review: findUniqueOrThrow
+   * Message: findUniqueOrThrow
    */
-  export type ReviewFindUniqueOrThrowArgs = ReviewFindUniqueArgsBase
+  export type MessageFindUniqueOrThrowArgs = MessageFindUniqueArgsBase
       
 
   /**
-   * Review: findFirstOrThrow
+   * Message: findFirstOrThrow
    */
-  export type ReviewFindFirstOrThrowArgs = ReviewFindFirstArgsBase
+  export type MessageFindFirstOrThrowArgs = MessageFindFirstArgsBase
       
 
   /**
-   * Review without action
+   * Message without action
    */
-  export type ReviewArgs = {
+  export type MessageArgs = {
     /**
-     * Select specific fields to fetch from the Review
+     * Select specific fields to fetch from the Message
      * 
     **/
-    select?: ReviewSelect | null
+    select?: MessageSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ReviewInclude | null
+    include?: MessageInclude | null
+  }
+
+
+
+  /**
+   * Model Answer
+   */
+
+
+  export type AggregateAnswer = {
+    _count: AnswerCountAggregateOutputType | null
+    _avg: AnswerAvgAggregateOutputType | null
+    _sum: AnswerSumAggregateOutputType | null
+    _min: AnswerMinAggregateOutputType | null
+    _max: AnswerMaxAggregateOutputType | null
+  }
+
+  export type AnswerAvgAggregateOutputType = {
+    id: number | null
+    likes: number | null
+    dislikes: number | null
+    messageId: number | null
+  }
+
+  export type AnswerSumAggregateOutputType = {
+    id: number | null
+    likes: number | null
+    dislikes: number | null
+    messageId: number | null
+  }
+
+  export type AnswerMinAggregateOutputType = {
+    id: number | null
+    text: string | null
+    likes: number | null
+    dislikes: number | null
+    createdAt: Date | null
+    messageId: number | null
+  }
+
+  export type AnswerMaxAggregateOutputType = {
+    id: number | null
+    text: string | null
+    likes: number | null
+    dislikes: number | null
+    createdAt: Date | null
+    messageId: number | null
+  }
+
+  export type AnswerCountAggregateOutputType = {
+    id: number
+    text: number
+    likes: number
+    dislikes: number
+    createdAt: number
+    messageId: number
+    _all: number
+  }
+
+
+  export type AnswerAvgAggregateInputType = {
+    id?: true
+    likes?: true
+    dislikes?: true
+    messageId?: true
+  }
+
+  export type AnswerSumAggregateInputType = {
+    id?: true
+    likes?: true
+    dislikes?: true
+    messageId?: true
+  }
+
+  export type AnswerMinAggregateInputType = {
+    id?: true
+    text?: true
+    likes?: true
+    dislikes?: true
+    createdAt?: true
+    messageId?: true
+  }
+
+  export type AnswerMaxAggregateInputType = {
+    id?: true
+    text?: true
+    likes?: true
+    dislikes?: true
+    createdAt?: true
+    messageId?: true
+  }
+
+  export type AnswerCountAggregateInputType = {
+    id?: true
+    text?: true
+    likes?: true
+    dislikes?: true
+    createdAt?: true
+    messageId?: true
+    _all?: true
+  }
+
+  export type AnswerAggregateArgs = {
+    /**
+     * Filter which Answer to aggregate.
+     * 
+    **/
+    where?: AnswerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Answers to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<AnswerOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     * 
+    **/
+    cursor?: AnswerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Answers from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Answers.
+     * 
+    **/
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Answers
+    **/
+    _count?: true | AnswerCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AnswerAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AnswerSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AnswerMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AnswerMaxAggregateInputType
+  }
+
+  export type GetAnswerAggregateType<T extends AnswerAggregateArgs> = {
+        [P in keyof T & keyof AggregateAnswer]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAnswer[P]>
+      : GetScalarType<T[P], AggregateAnswer[P]>
+  }
+
+
+
+
+  export type AnswerGroupByArgs = {
+    where?: AnswerWhereInput
+    orderBy?: Enumerable<AnswerOrderByWithAggregationInput>
+    by: Array<AnswerScalarFieldEnum>
+    having?: AnswerScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AnswerCountAggregateInputType | true
+    _avg?: AnswerAvgAggregateInputType
+    _sum?: AnswerSumAggregateInputType
+    _min?: AnswerMinAggregateInputType
+    _max?: AnswerMaxAggregateInputType
+  }
+
+
+  export type AnswerGroupByOutputType = {
+    id: number
+    text: string
+    likes: number
+    dislikes: number
+    createdAt: Date
+    messageId: number
+    _count: AnswerCountAggregateOutputType | null
+    _avg: AnswerAvgAggregateOutputType | null
+    _sum: AnswerSumAggregateOutputType | null
+    _min: AnswerMinAggregateOutputType | null
+    _max: AnswerMaxAggregateOutputType | null
+  }
+
+  type GetAnswerGroupByPayload<T extends AnswerGroupByArgs> = PrismaPromise<
+    Array<
+      PickArray<AnswerGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AnswerGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AnswerGroupByOutputType[P]>
+            : GetScalarType<T[P], AnswerGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AnswerSelect = {
+    id?: boolean
+    text?: boolean
+    likes?: boolean
+    dislikes?: boolean
+    createdAt?: boolean
+    message?: boolean | MessageArgs
+    messageId?: boolean
+  }
+
+  export type AnswerInclude = {
+    message?: boolean | MessageArgs
+  }
+
+  export type AnswerGetPayload<
+    S extends boolean | null | undefined | AnswerArgs,
+    U = keyof S
+      > = S extends true
+        ? Answer
+    : S extends undefined
+    ? never
+    : S extends AnswerArgs | AnswerFindManyArgs
+    ?'include' extends U
+    ? Answer  & {
+    [P in TrueKeys<S['include']>]:
+        P extends 'message' ? MessageGetPayload<S['include'][P]> :  never
+  } 
+    : 'select' extends U
+    ? {
+    [P in TrueKeys<S['select']>]:
+        P extends 'message' ? MessageGetPayload<S['select'][P]> :  P extends keyof Answer ? Answer[P] : never
+  } 
+    : Answer
+  : Answer
+
+
+  type AnswerCountArgs = Merge<
+    Omit<AnswerFindManyArgs, 'select' | 'include'> & {
+      select?: AnswerCountAggregateInputType | true
+    }
+  >
+
+  export interface AnswerDelegate<GlobalRejectSettings> {
+    /**
+     * Find zero or one Answer that matches the filter.
+     * @param {AnswerFindUniqueArgs} args - Arguments to find a Answer
+     * @example
+     * // Get one Answer
+     * const answer = await prisma.answer.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends AnswerFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, AnswerFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Answer'> extends True ? CheckSelect<T, Prisma__AnswerClient<Answer>, Prisma__AnswerClient<AnswerGetPayload<T>>> : CheckSelect<T, Prisma__AnswerClient<Answer | null >, Prisma__AnswerClient<AnswerGetPayload<T> | null >>
+
+    /**
+     * Find the first Answer that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnswerFindFirstArgs} args - Arguments to find a Answer
+     * @example
+     * // Get one Answer
+     * const answer = await prisma.answer.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends AnswerFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, AnswerFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Answer'> extends True ? CheckSelect<T, Prisma__AnswerClient<Answer>, Prisma__AnswerClient<AnswerGetPayload<T>>> : CheckSelect<T, Prisma__AnswerClient<Answer | null >, Prisma__AnswerClient<AnswerGetPayload<T> | null >>
+
+    /**
+     * Find zero or more Answers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnswerFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Answers
+     * const answers = await prisma.answer.findMany()
+     * 
+     * // Get first 10 Answers
+     * const answers = await prisma.answer.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const answerWithIdOnly = await prisma.answer.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends AnswerFindManyArgs>(
+      args?: SelectSubset<T, AnswerFindManyArgs>
+    ): CheckSelect<T, PrismaPromise<Array<Answer>>, PrismaPromise<Array<AnswerGetPayload<T>>>>
+
+    /**
+     * Create a Answer.
+     * @param {AnswerCreateArgs} args - Arguments to create a Answer.
+     * @example
+     * // Create one Answer
+     * const Answer = await prisma.answer.create({
+     *   data: {
+     *     // ... data to create a Answer
+     *   }
+     * })
+     * 
+    **/
+    create<T extends AnswerCreateArgs>(
+      args: SelectSubset<T, AnswerCreateArgs>
+    ): CheckSelect<T, Prisma__AnswerClient<Answer>, Prisma__AnswerClient<AnswerGetPayload<T>>>
+
+    /**
+     * Create many Answers.
+     *     @param {AnswerCreateManyArgs} args - Arguments to create many Answers.
+     *     @example
+     *     // Create many Answers
+     *     const answer = await prisma.answer.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends AnswerCreateManyArgs>(
+      args?: SelectSubset<T, AnswerCreateManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Answer.
+     * @param {AnswerDeleteArgs} args - Arguments to delete one Answer.
+     * @example
+     * // Delete one Answer
+     * const Answer = await prisma.answer.delete({
+     *   where: {
+     *     // ... filter to delete one Answer
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends AnswerDeleteArgs>(
+      args: SelectSubset<T, AnswerDeleteArgs>
+    ): CheckSelect<T, Prisma__AnswerClient<Answer>, Prisma__AnswerClient<AnswerGetPayload<T>>>
+
+    /**
+     * Update one Answer.
+     * @param {AnswerUpdateArgs} args - Arguments to update one Answer.
+     * @example
+     * // Update one Answer
+     * const answer = await prisma.answer.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends AnswerUpdateArgs>(
+      args: SelectSubset<T, AnswerUpdateArgs>
+    ): CheckSelect<T, Prisma__AnswerClient<Answer>, Prisma__AnswerClient<AnswerGetPayload<T>>>
+
+    /**
+     * Delete zero or more Answers.
+     * @param {AnswerDeleteManyArgs} args - Arguments to filter Answers to delete.
+     * @example
+     * // Delete a few Answers
+     * const { count } = await prisma.answer.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends AnswerDeleteManyArgs>(
+      args?: SelectSubset<T, AnswerDeleteManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Answers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnswerUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Answers
+     * const answer = await prisma.answer.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends AnswerUpdateManyArgs>(
+      args: SelectSubset<T, AnswerUpdateManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Answer.
+     * @param {AnswerUpsertArgs} args - Arguments to update or create a Answer.
+     * @example
+     * // Update or create a Answer
+     * const answer = await prisma.answer.upsert({
+     *   create: {
+     *     // ... data to create a Answer
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Answer we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends AnswerUpsertArgs>(
+      args: SelectSubset<T, AnswerUpsertArgs>
+    ): CheckSelect<T, Prisma__AnswerClient<Answer>, Prisma__AnswerClient<AnswerGetPayload<T>>>
+
+    /**
+     * Find one Answer that matches the filter or throw
+     * `NotFoundError` if no matches were found.
+     * @param {AnswerFindUniqueOrThrowArgs} args - Arguments to find a Answer
+     * @example
+     * // Get one Answer
+     * const answer = await prisma.answer.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends AnswerFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, AnswerFindUniqueOrThrowArgs>
+    ): CheckSelect<T, Prisma__AnswerClient<Answer>, Prisma__AnswerClient<AnswerGetPayload<T>>>
+
+    /**
+     * Find the first Answer that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnswerFindFirstOrThrowArgs} args - Arguments to find a Answer
+     * @example
+     * // Get one Answer
+     * const answer = await prisma.answer.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends AnswerFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, AnswerFindFirstOrThrowArgs>
+    ): CheckSelect<T, Prisma__AnswerClient<Answer>, Prisma__AnswerClient<AnswerGetPayload<T>>>
+
+    /**
+     * Count the number of Answers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnswerCountArgs} args - Arguments to filter Answers to count.
+     * @example
+     * // Count the number of Answers
+     * const count = await prisma.answer.count({
+     *   where: {
+     *     // ... the filter for the Answers we want to count
+     *   }
+     * })
+    **/
+    count<T extends AnswerCountArgs>(
+      args?: Subset<T, AnswerCountArgs>,
+    ): PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AnswerCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Answer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnswerAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AnswerAggregateArgs>(args: Subset<T, AnswerAggregateArgs>): PrismaPromise<GetAnswerAggregateType<T>>
+
+    /**
+     * Group by Answer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnswerGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AnswerGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AnswerGroupByArgs['orderBy'] }
+        : { orderBy?: AnswerGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AnswerGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAnswerGroupByPayload<T> : PrismaPromise<InputErrors>
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Answer.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__AnswerClient<T> implements PrismaPromise<T> {
+    [prisma]: true;
+    private readonly _dmmf;
+    private readonly _fetcher;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    constructor(_dmmf: runtime.DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+    readonly [Symbol.toStringTag]: 'PrismaClientPromise';
+
+    message<T extends MessageArgs = {}>(args?: Subset<T, MessageArgs>): CheckSelect<T, Prisma__MessageClient<Message | null >, Prisma__MessageClient<MessageGetPayload<T> | null >>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+  // Custom InputTypes
+
+  /**
+   * Answer base type for findUnique actions
+   */
+  export type AnswerFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the Answer
+     * 
+    **/
+    select?: AnswerSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: AnswerInclude | null
+    /**
+     * Filter, which Answer to fetch.
+     * 
+    **/
+    where: AnswerWhereUniqueInput
+  }
+
+  /**
+   * Answer: findUnique
+   */
+  export interface AnswerFindUniqueArgs extends AnswerFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Answer base type for findFirst actions
+   */
+  export type AnswerFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the Answer
+     * 
+    **/
+    select?: AnswerSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: AnswerInclude | null
+    /**
+     * Filter, which Answer to fetch.
+     * 
+    **/
+    where?: AnswerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Answers to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<AnswerOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Answers.
+     * 
+    **/
+    cursor?: AnswerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Answers from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Answers.
+     * 
+    **/
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Answers.
+     * 
+    **/
+    distinct?: Enumerable<AnswerScalarFieldEnum>
+  }
+
+  /**
+   * Answer: findFirst
+   */
+  export interface AnswerFindFirstArgs extends AnswerFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Answer findMany
+   */
+  export type AnswerFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the Answer
+     * 
+    **/
+    select?: AnswerSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: AnswerInclude | null
+    /**
+     * Filter, which Answers to fetch.
+     * 
+    **/
+    where?: AnswerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Answers to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<AnswerOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Answers.
+     * 
+    **/
+    cursor?: AnswerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Answers from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Answers.
+     * 
+    **/
+    skip?: number
+    distinct?: Enumerable<AnswerScalarFieldEnum>
+  }
+
+
+  /**
+   * Answer create
+   */
+  export type AnswerCreateArgs = {
+    /**
+     * Select specific fields to fetch from the Answer
+     * 
+    **/
+    select?: AnswerSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: AnswerInclude | null
+    /**
+     * The data needed to create a Answer.
+     * 
+    **/
+    data: XOR<AnswerCreateInput, AnswerUncheckedCreateInput>
+  }
+
+
+  /**
+   * Answer createMany
+   */
+  export type AnswerCreateManyArgs = {
+    /**
+     * The data used to create many Answers.
+     * 
+    **/
+    data: Enumerable<AnswerCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * Answer update
+   */
+  export type AnswerUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the Answer
+     * 
+    **/
+    select?: AnswerSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: AnswerInclude | null
+    /**
+     * The data needed to update a Answer.
+     * 
+    **/
+    data: XOR<AnswerUpdateInput, AnswerUncheckedUpdateInput>
+    /**
+     * Choose, which Answer to update.
+     * 
+    **/
+    where: AnswerWhereUniqueInput
+  }
+
+
+  /**
+   * Answer updateMany
+   */
+  export type AnswerUpdateManyArgs = {
+    /**
+     * The data used to update Answers.
+     * 
+    **/
+    data: XOR<AnswerUpdateManyMutationInput, AnswerUncheckedUpdateManyInput>
+    /**
+     * Filter which Answers to update
+     * 
+    **/
+    where?: AnswerWhereInput
+  }
+
+
+  /**
+   * Answer upsert
+   */
+  export type AnswerUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the Answer
+     * 
+    **/
+    select?: AnswerSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: AnswerInclude | null
+    /**
+     * The filter to search for the Answer to update in case it exists.
+     * 
+    **/
+    where: AnswerWhereUniqueInput
+    /**
+     * In case the Answer found by the `where` argument doesn't exist, create a new Answer with this data.
+     * 
+    **/
+    create: XOR<AnswerCreateInput, AnswerUncheckedCreateInput>
+    /**
+     * In case the Answer was found with the provided `where` argument, update it with this data.
+     * 
+    **/
+    update: XOR<AnswerUpdateInput, AnswerUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Answer delete
+   */
+  export type AnswerDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the Answer
+     * 
+    **/
+    select?: AnswerSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: AnswerInclude | null
+    /**
+     * Filter which Answer to delete.
+     * 
+    **/
+    where: AnswerWhereUniqueInput
+  }
+
+
+  /**
+   * Answer deleteMany
+   */
+  export type AnswerDeleteManyArgs = {
+    /**
+     * Filter which Answers to delete
+     * 
+    **/
+    where?: AnswerWhereInput
+  }
+
+
+  /**
+   * Answer: findUniqueOrThrow
+   */
+  export type AnswerFindUniqueOrThrowArgs = AnswerFindUniqueArgsBase
+      
+
+  /**
+   * Answer: findFirstOrThrow
+   */
+  export type AnswerFindFirstOrThrowArgs = AnswerFindFirstArgsBase
+      
+
+  /**
+   * Answer without action
+   */
+  export type AnswerArgs = {
+    /**
+     * Select specific fields to fetch from the Answer
+     * 
+    **/
+    select?: AnswerSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: AnswerInclude | null
   }
 
 
@@ -2772,22 +2829,27 @@ export namespace Prisma {
   // Based on
   // https://github.com/microsoft/TypeScript/issues/3192#issuecomment-261720275
 
-  export const ProductScalarFieldEnum: {
-    id: 'id',
-    title: 'title',
-    price: 'price'
-  };
-
-  export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
-
-
-  export const ReviewScalarFieldEnum: {
+  export const MessageScalarFieldEnum: {
     id: 'id',
     text: 'text',
-    productId: 'productId'
+    likes: 'likes',
+    dislikes: 'dislikes',
+    createdAt: 'createdAt'
   };
 
-  export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
+  export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
+
+
+  export const AnswerScalarFieldEnum: {
+    id: 'id',
+    text: 'text',
+    likes: 'likes',
+    dislikes: 'dislikes',
+    createdAt: 'createdAt',
+    messageId: 'messageId'
+  };
+
+  export type AnswerScalarFieldEnum = (typeof AnswerScalarFieldEnum)[keyof typeof AnswerScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -2811,167 +2873,222 @@ export namespace Prisma {
    */
 
 
-  export type ProductWhereInput = {
-    AND?: Enumerable<ProductWhereInput>
-    OR?: Enumerable<ProductWhereInput>
-    NOT?: Enumerable<ProductWhereInput>
-    id?: IntFilter | number
-    title?: StringFilter | string
-    price?: FloatFilter | number
-    reviews?: ReviewListRelationFilter
-  }
-
-  export type ProductOrderByWithRelationInput = {
-    id?: SortOrder
-    title?: SortOrder
-    price?: SortOrder
-    reviews?: ReviewOrderByRelationAggregateInput
-  }
-
-  export type ProductWhereUniqueInput = {
-    id?: number
-  }
-
-  export type ProductOrderByWithAggregationInput = {
-    id?: SortOrder
-    title?: SortOrder
-    price?: SortOrder
-    _count?: ProductCountOrderByAggregateInput
-    _avg?: ProductAvgOrderByAggregateInput
-    _max?: ProductMaxOrderByAggregateInput
-    _min?: ProductMinOrderByAggregateInput
-    _sum?: ProductSumOrderByAggregateInput
-  }
-
-  export type ProductScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<ProductScalarWhereWithAggregatesInput>
-    OR?: Enumerable<ProductScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<ProductScalarWhereWithAggregatesInput>
-    id?: IntWithAggregatesFilter | number
-    title?: StringWithAggregatesFilter | string
-    price?: FloatWithAggregatesFilter | number
-  }
-
-  export type ReviewWhereInput = {
-    AND?: Enumerable<ReviewWhereInput>
-    OR?: Enumerable<ReviewWhereInput>
-    NOT?: Enumerable<ReviewWhereInput>
+  export type MessageWhereInput = {
+    AND?: Enumerable<MessageWhereInput>
+    OR?: Enumerable<MessageWhereInput>
+    NOT?: Enumerable<MessageWhereInput>
     id?: IntFilter | number
     text?: StringFilter | string
-    product?: XOR<ProductRelationFilter, ProductWhereInput>
-    productId?: IntFilter | number
+    likes?: IntFilter | number
+    dislikes?: IntFilter | number
+    createdAt?: DateTimeFilter | Date | string
+    answers?: AnswerListRelationFilter
   }
 
-  export type ReviewOrderByWithRelationInput = {
+  export type MessageOrderByWithRelationInput = {
     id?: SortOrder
     text?: SortOrder
-    product?: ProductOrderByWithRelationInput
-    productId?: SortOrder
+    likes?: SortOrder
+    dislikes?: SortOrder
+    createdAt?: SortOrder
+    answers?: AnswerOrderByRelationAggregateInput
   }
 
-  export type ReviewWhereUniqueInput = {
+  export type MessageWhereUniqueInput = {
     id?: number
   }
 
-  export type ReviewOrderByWithAggregationInput = {
+  export type MessageOrderByWithAggregationInput = {
     id?: SortOrder
     text?: SortOrder
-    productId?: SortOrder
-    _count?: ReviewCountOrderByAggregateInput
-    _avg?: ReviewAvgOrderByAggregateInput
-    _max?: ReviewMaxOrderByAggregateInput
-    _min?: ReviewMinOrderByAggregateInput
-    _sum?: ReviewSumOrderByAggregateInput
+    likes?: SortOrder
+    dislikes?: SortOrder
+    createdAt?: SortOrder
+    _count?: MessageCountOrderByAggregateInput
+    _avg?: MessageAvgOrderByAggregateInput
+    _max?: MessageMaxOrderByAggregateInput
+    _min?: MessageMinOrderByAggregateInput
+    _sum?: MessageSumOrderByAggregateInput
   }
 
-  export type ReviewScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<ReviewScalarWhereWithAggregatesInput>
-    OR?: Enumerable<ReviewScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<ReviewScalarWhereWithAggregatesInput>
+  export type MessageScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<MessageScalarWhereWithAggregatesInput>
+    OR?: Enumerable<MessageScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<MessageScalarWhereWithAggregatesInput>
     id?: IntWithAggregatesFilter | number
     text?: StringWithAggregatesFilter | string
-    productId?: IntWithAggregatesFilter | number
+    likes?: IntWithAggregatesFilter | number
+    dislikes?: IntWithAggregatesFilter | number
+    createdAt?: DateTimeWithAggregatesFilter | Date | string
   }
 
-  export type ProductCreateInput = {
-    title: string
-    price: number
-    reviews?: ReviewCreateNestedManyWithoutProductInput
+  export type AnswerWhereInput = {
+    AND?: Enumerable<AnswerWhereInput>
+    OR?: Enumerable<AnswerWhereInput>
+    NOT?: Enumerable<AnswerWhereInput>
+    id?: IntFilter | number
+    text?: StringFilter | string
+    likes?: IntFilter | number
+    dislikes?: IntFilter | number
+    createdAt?: DateTimeFilter | Date | string
+    message?: XOR<MessageRelationFilter, MessageWhereInput>
+    messageId?: IntFilter | number
   }
 
-  export type ProductUncheckedCreateInput = {
+  export type AnswerOrderByWithRelationInput = {
+    id?: SortOrder
+    text?: SortOrder
+    likes?: SortOrder
+    dislikes?: SortOrder
+    createdAt?: SortOrder
+    message?: MessageOrderByWithRelationInput
+    messageId?: SortOrder
+  }
+
+  export type AnswerWhereUniqueInput = {
     id?: number
-    title: string
-    price: number
-    reviews?: ReviewUncheckedCreateNestedManyWithoutProductInput
   }
 
-  export type ProductUpdateInput = {
-    title?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
-    reviews?: ReviewUpdateManyWithoutProductNestedInput
+  export type AnswerOrderByWithAggregationInput = {
+    id?: SortOrder
+    text?: SortOrder
+    likes?: SortOrder
+    dislikes?: SortOrder
+    createdAt?: SortOrder
+    messageId?: SortOrder
+    _count?: AnswerCountOrderByAggregateInput
+    _avg?: AnswerAvgOrderByAggregateInput
+    _max?: AnswerMaxOrderByAggregateInput
+    _min?: AnswerMinOrderByAggregateInput
+    _sum?: AnswerSumOrderByAggregateInput
   }
 
-  export type ProductUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    title?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
-    reviews?: ReviewUncheckedUpdateManyWithoutProductNestedInput
+  export type AnswerScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<AnswerScalarWhereWithAggregatesInput>
+    OR?: Enumerable<AnswerScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<AnswerScalarWhereWithAggregatesInput>
+    id?: IntWithAggregatesFilter | number
+    text?: StringWithAggregatesFilter | string
+    likes?: IntWithAggregatesFilter | number
+    dislikes?: IntWithAggregatesFilter | number
+    createdAt?: DateTimeWithAggregatesFilter | Date | string
+    messageId?: IntWithAggregatesFilter | number
   }
 
-  export type ProductCreateManyInput = {
-    id?: number
-    title: string
-    price: number
-  }
-
-  export type ProductUpdateManyMutationInput = {
-    title?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
-  }
-
-  export type ProductUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    title?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
-  }
-
-  export type ReviewCreateInput = {
+  export type MessageCreateInput = {
     text: string
-    product: ProductCreateNestedOneWithoutReviewsInput
+    likes: number
+    dislikes: number
+    createdAt?: Date | string
+    answers?: AnswerCreateNestedManyWithoutMessageInput
   }
 
-  export type ReviewUncheckedCreateInput = {
-    id?: number
-    text: string
-    productId: number
-  }
-
-  export type ReviewUpdateInput = {
-    text?: StringFieldUpdateOperationsInput | string
-    product?: ProductUpdateOneRequiredWithoutReviewsNestedInput
-  }
-
-  export type ReviewUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    text?: StringFieldUpdateOperationsInput | string
-    productId?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type ReviewCreateManyInput = {
+  export type MessageUncheckedCreateInput = {
     id?: number
     text: string
-    productId: number
+    likes: number
+    dislikes: number
+    createdAt?: Date | string
+    answers?: AnswerUncheckedCreateNestedManyWithoutMessageInput
   }
 
-  export type ReviewUpdateManyMutationInput = {
+  export type MessageUpdateInput = {
     text?: StringFieldUpdateOperationsInput | string
+    likes?: IntFieldUpdateOperationsInput | number
+    dislikes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    answers?: AnswerUpdateManyWithoutMessageNestedInput
   }
 
-  export type ReviewUncheckedUpdateManyInput = {
+  export type MessageUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     text?: StringFieldUpdateOperationsInput | string
-    productId?: IntFieldUpdateOperationsInput | number
+    likes?: IntFieldUpdateOperationsInput | number
+    dislikes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    answers?: AnswerUncheckedUpdateManyWithoutMessageNestedInput
+  }
+
+  export type MessageCreateManyInput = {
+    id?: number
+    text: string
+    likes: number
+    dislikes: number
+    createdAt?: Date | string
+  }
+
+  export type MessageUpdateManyMutationInput = {
+    text?: StringFieldUpdateOperationsInput | string
+    likes?: IntFieldUpdateOperationsInput | number
+    dislikes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    text?: StringFieldUpdateOperationsInput | string
+    likes?: IntFieldUpdateOperationsInput | number
+    dislikes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AnswerCreateInput = {
+    text: string
+    likes: number
+    dislikes: number
+    createdAt?: Date | string
+    message: MessageCreateNestedOneWithoutAnswersInput
+  }
+
+  export type AnswerUncheckedCreateInput = {
+    id?: number
+    text: string
+    likes: number
+    dislikes: number
+    createdAt?: Date | string
+    messageId: number
+  }
+
+  export type AnswerUpdateInput = {
+    text?: StringFieldUpdateOperationsInput | string
+    likes?: IntFieldUpdateOperationsInput | number
+    dislikes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    message?: MessageUpdateOneRequiredWithoutAnswersNestedInput
+  }
+
+  export type AnswerUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    text?: StringFieldUpdateOperationsInput | string
+    likes?: IntFieldUpdateOperationsInput | number
+    dislikes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messageId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AnswerCreateManyInput = {
+    id?: number
+    text: string
+    likes: number
+    dislikes: number
+    createdAt?: Date | string
+    messageId: number
+  }
+
+  export type AnswerUpdateManyMutationInput = {
+    text?: StringFieldUpdateOperationsInput | string
+    likes?: IntFieldUpdateOperationsInput | number
+    dislikes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AnswerUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    text?: StringFieldUpdateOperationsInput | string
+    likes?: IntFieldUpdateOperationsInput | number
+    dislikes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messageId?: IntFieldUpdateOperationsInput | number
   }
 
   export type IntFilter = {
@@ -3000,53 +3117,61 @@ export namespace Prisma {
     not?: NestedStringFilter | string
   }
 
-  export type FloatFilter = {
-    equals?: number
-    in?: Enumerable<number>
-    notIn?: Enumerable<number>
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedFloatFilter | number
+  export type DateTimeFilter = {
+    equals?: Date | string
+    in?: Enumerable<Date> | Enumerable<string>
+    notIn?: Enumerable<Date> | Enumerable<string>
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeFilter | Date | string
   }
 
-  export type ReviewListRelationFilter = {
-    every?: ReviewWhereInput
-    some?: ReviewWhereInput
-    none?: ReviewWhereInput
+  export type AnswerListRelationFilter = {
+    every?: AnswerWhereInput
+    some?: AnswerWhereInput
+    none?: AnswerWhereInput
   }
 
-  export type ReviewOrderByRelationAggregateInput = {
+  export type AnswerOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type ProductCountOrderByAggregateInput = {
+  export type MessageCountOrderByAggregateInput = {
     id?: SortOrder
-    title?: SortOrder
-    price?: SortOrder
+    text?: SortOrder
+    likes?: SortOrder
+    dislikes?: SortOrder
+    createdAt?: SortOrder
   }
 
-  export type ProductAvgOrderByAggregateInput = {
+  export type MessageAvgOrderByAggregateInput = {
     id?: SortOrder
-    price?: SortOrder
+    likes?: SortOrder
+    dislikes?: SortOrder
   }
 
-  export type ProductMaxOrderByAggregateInput = {
+  export type MessageMaxOrderByAggregateInput = {
     id?: SortOrder
-    title?: SortOrder
-    price?: SortOrder
+    text?: SortOrder
+    likes?: SortOrder
+    dislikes?: SortOrder
+    createdAt?: SortOrder
   }
 
-  export type ProductMinOrderByAggregateInput = {
+  export type MessageMinOrderByAggregateInput = {
     id?: SortOrder
-    title?: SortOrder
-    price?: SortOrder
+    text?: SortOrder
+    likes?: SortOrder
+    dislikes?: SortOrder
+    createdAt?: SortOrder
   }
 
-  export type ProductSumOrderByAggregateInput = {
+  export type MessageSumOrderByAggregateInput = {
     id?: SortOrder
-    price?: SortOrder
+    likes?: SortOrder
+    dislikes?: SortOrder
   }
 
   export type IntWithAggregatesFilter = {
@@ -3083,93 +3208,82 @@ export namespace Prisma {
     _max?: NestedStringFilter
   }
 
-  export type FloatWithAggregatesFilter = {
-    equals?: number
-    in?: Enumerable<number>
-    notIn?: Enumerable<number>
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedFloatWithAggregatesFilter | number
+  export type DateTimeWithAggregatesFilter = {
+    equals?: Date | string
+    in?: Enumerable<Date> | Enumerable<string>
+    notIn?: Enumerable<Date> | Enumerable<string>
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeWithAggregatesFilter | Date | string
     _count?: NestedIntFilter
-    _avg?: NestedFloatFilter
-    _sum?: NestedFloatFilter
-    _min?: NestedFloatFilter
-    _max?: NestedFloatFilter
+    _min?: NestedDateTimeFilter
+    _max?: NestedDateTimeFilter
   }
 
-  export type ProductRelationFilter = {
-    is?: ProductWhereInput
-    isNot?: ProductWhereInput
+  export type MessageRelationFilter = {
+    is?: MessageWhereInput
+    isNot?: MessageWhereInput
   }
 
-  export type ReviewCountOrderByAggregateInput = {
+  export type AnswerCountOrderByAggregateInput = {
     id?: SortOrder
     text?: SortOrder
-    productId?: SortOrder
+    likes?: SortOrder
+    dislikes?: SortOrder
+    createdAt?: SortOrder
+    messageId?: SortOrder
   }
 
-  export type ReviewAvgOrderByAggregateInput = {
+  export type AnswerAvgOrderByAggregateInput = {
     id?: SortOrder
-    productId?: SortOrder
+    likes?: SortOrder
+    dislikes?: SortOrder
+    messageId?: SortOrder
   }
 
-  export type ReviewMaxOrderByAggregateInput = {
+  export type AnswerMaxOrderByAggregateInput = {
     id?: SortOrder
     text?: SortOrder
-    productId?: SortOrder
+    likes?: SortOrder
+    dislikes?: SortOrder
+    createdAt?: SortOrder
+    messageId?: SortOrder
   }
 
-  export type ReviewMinOrderByAggregateInput = {
+  export type AnswerMinOrderByAggregateInput = {
     id?: SortOrder
     text?: SortOrder
-    productId?: SortOrder
+    likes?: SortOrder
+    dislikes?: SortOrder
+    createdAt?: SortOrder
+    messageId?: SortOrder
   }
 
-  export type ReviewSumOrderByAggregateInput = {
+  export type AnswerSumOrderByAggregateInput = {
     id?: SortOrder
-    productId?: SortOrder
+    likes?: SortOrder
+    dislikes?: SortOrder
+    messageId?: SortOrder
   }
 
-  export type ReviewCreateNestedManyWithoutProductInput = {
-    create?: XOR<Enumerable<ReviewCreateWithoutProductInput>, Enumerable<ReviewUncheckedCreateWithoutProductInput>>
-    connectOrCreate?: Enumerable<ReviewCreateOrConnectWithoutProductInput>
-    createMany?: ReviewCreateManyProductInputEnvelope
-    connect?: Enumerable<ReviewWhereUniqueInput>
+  export type AnswerCreateNestedManyWithoutMessageInput = {
+    create?: XOR<Enumerable<AnswerCreateWithoutMessageInput>, Enumerable<AnswerUncheckedCreateWithoutMessageInput>>
+    connectOrCreate?: Enumerable<AnswerCreateOrConnectWithoutMessageInput>
+    createMany?: AnswerCreateManyMessageInputEnvelope
+    connect?: Enumerable<AnswerWhereUniqueInput>
   }
 
-  export type ReviewUncheckedCreateNestedManyWithoutProductInput = {
-    create?: XOR<Enumerable<ReviewCreateWithoutProductInput>, Enumerable<ReviewUncheckedCreateWithoutProductInput>>
-    connectOrCreate?: Enumerable<ReviewCreateOrConnectWithoutProductInput>
-    createMany?: ReviewCreateManyProductInputEnvelope
-    connect?: Enumerable<ReviewWhereUniqueInput>
+  export type AnswerUncheckedCreateNestedManyWithoutMessageInput = {
+    create?: XOR<Enumerable<AnswerCreateWithoutMessageInput>, Enumerable<AnswerUncheckedCreateWithoutMessageInput>>
+    connectOrCreate?: Enumerable<AnswerCreateOrConnectWithoutMessageInput>
+    createMany?: AnswerCreateManyMessageInputEnvelope
+    connect?: Enumerable<AnswerWhereUniqueInput>
   }
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
-  }
-
-  export type FloatFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
-  export type ReviewUpdateManyWithoutProductNestedInput = {
-    create?: XOR<Enumerable<ReviewCreateWithoutProductInput>, Enumerable<ReviewUncheckedCreateWithoutProductInput>>
-    connectOrCreate?: Enumerable<ReviewCreateOrConnectWithoutProductInput>
-    upsert?: Enumerable<ReviewUpsertWithWhereUniqueWithoutProductInput>
-    createMany?: ReviewCreateManyProductInputEnvelope
-    set?: Enumerable<ReviewWhereUniqueInput>
-    disconnect?: Enumerable<ReviewWhereUniqueInput>
-    delete?: Enumerable<ReviewWhereUniqueInput>
-    connect?: Enumerable<ReviewWhereUniqueInput>
-    update?: Enumerable<ReviewUpdateWithWhereUniqueWithoutProductInput>
-    updateMany?: Enumerable<ReviewUpdateManyWithWhereWithoutProductInput>
-    deleteMany?: Enumerable<ReviewScalarWhereInput>
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -3180,32 +3294,50 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type ReviewUncheckedUpdateManyWithoutProductNestedInput = {
-    create?: XOR<Enumerable<ReviewCreateWithoutProductInput>, Enumerable<ReviewUncheckedCreateWithoutProductInput>>
-    connectOrCreate?: Enumerable<ReviewCreateOrConnectWithoutProductInput>
-    upsert?: Enumerable<ReviewUpsertWithWhereUniqueWithoutProductInput>
-    createMany?: ReviewCreateManyProductInputEnvelope
-    set?: Enumerable<ReviewWhereUniqueInput>
-    disconnect?: Enumerable<ReviewWhereUniqueInput>
-    delete?: Enumerable<ReviewWhereUniqueInput>
-    connect?: Enumerable<ReviewWhereUniqueInput>
-    update?: Enumerable<ReviewUpdateWithWhereUniqueWithoutProductInput>
-    updateMany?: Enumerable<ReviewUpdateManyWithWhereWithoutProductInput>
-    deleteMany?: Enumerable<ReviewScalarWhereInput>
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
   }
 
-  export type ProductCreateNestedOneWithoutReviewsInput = {
-    create?: XOR<ProductCreateWithoutReviewsInput, ProductUncheckedCreateWithoutReviewsInput>
-    connectOrCreate?: ProductCreateOrConnectWithoutReviewsInput
-    connect?: ProductWhereUniqueInput
+  export type AnswerUpdateManyWithoutMessageNestedInput = {
+    create?: XOR<Enumerable<AnswerCreateWithoutMessageInput>, Enumerable<AnswerUncheckedCreateWithoutMessageInput>>
+    connectOrCreate?: Enumerable<AnswerCreateOrConnectWithoutMessageInput>
+    upsert?: Enumerable<AnswerUpsertWithWhereUniqueWithoutMessageInput>
+    createMany?: AnswerCreateManyMessageInputEnvelope
+    set?: Enumerable<AnswerWhereUniqueInput>
+    disconnect?: Enumerable<AnswerWhereUniqueInput>
+    delete?: Enumerable<AnswerWhereUniqueInput>
+    connect?: Enumerable<AnswerWhereUniqueInput>
+    update?: Enumerable<AnswerUpdateWithWhereUniqueWithoutMessageInput>
+    updateMany?: Enumerable<AnswerUpdateManyWithWhereWithoutMessageInput>
+    deleteMany?: Enumerable<AnswerScalarWhereInput>
   }
 
-  export type ProductUpdateOneRequiredWithoutReviewsNestedInput = {
-    create?: XOR<ProductCreateWithoutReviewsInput, ProductUncheckedCreateWithoutReviewsInput>
-    connectOrCreate?: ProductCreateOrConnectWithoutReviewsInput
-    upsert?: ProductUpsertWithoutReviewsInput
-    connect?: ProductWhereUniqueInput
-    update?: XOR<ProductUpdateWithoutReviewsInput, ProductUncheckedUpdateWithoutReviewsInput>
+  export type AnswerUncheckedUpdateManyWithoutMessageNestedInput = {
+    create?: XOR<Enumerable<AnswerCreateWithoutMessageInput>, Enumerable<AnswerUncheckedCreateWithoutMessageInput>>
+    connectOrCreate?: Enumerable<AnswerCreateOrConnectWithoutMessageInput>
+    upsert?: Enumerable<AnswerUpsertWithWhereUniqueWithoutMessageInput>
+    createMany?: AnswerCreateManyMessageInputEnvelope
+    set?: Enumerable<AnswerWhereUniqueInput>
+    disconnect?: Enumerable<AnswerWhereUniqueInput>
+    delete?: Enumerable<AnswerWhereUniqueInput>
+    connect?: Enumerable<AnswerWhereUniqueInput>
+    update?: Enumerable<AnswerUpdateWithWhereUniqueWithoutMessageInput>
+    updateMany?: Enumerable<AnswerUpdateManyWithWhereWithoutMessageInput>
+    deleteMany?: Enumerable<AnswerScalarWhereInput>
+  }
+
+  export type MessageCreateNestedOneWithoutAnswersInput = {
+    create?: XOR<MessageCreateWithoutAnswersInput, MessageUncheckedCreateWithoutAnswersInput>
+    connectOrCreate?: MessageCreateOrConnectWithoutAnswersInput
+    connect?: MessageWhereUniqueInput
+  }
+
+  export type MessageUpdateOneRequiredWithoutAnswersNestedInput = {
+    create?: XOR<MessageCreateWithoutAnswersInput, MessageUncheckedCreateWithoutAnswersInput>
+    connectOrCreate?: MessageCreateOrConnectWithoutAnswersInput
+    upsert?: MessageUpsertWithoutAnswersInput
+    connect?: MessageWhereUniqueInput
+    update?: XOR<MessageUpdateWithoutAnswersInput, MessageUncheckedUpdateWithoutAnswersInput>
   }
 
   export type NestedIntFilter = {
@@ -3233,15 +3365,15 @@ export namespace Prisma {
     not?: NestedStringFilter | string
   }
 
-  export type NestedFloatFilter = {
-    equals?: number
-    in?: Enumerable<number>
-    notIn?: Enumerable<number>
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedFloatFilter | number
+  export type NestedDateTimeFilter = {
+    equals?: Date | string
+    in?: Enumerable<Date> | Enumerable<string>
+    notIn?: Enumerable<Date> | Enumerable<string>
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeFilter | Date | string
   }
 
   export type NestedIntWithAggregatesFilter = {
@@ -3258,6 +3390,17 @@ export namespace Prisma {
     _sum?: NestedIntFilter
     _min?: NestedIntFilter
     _max?: NestedIntFilter
+  }
+
+  export type NestedFloatFilter = {
+    equals?: number
+    in?: Enumerable<number>
+    notIn?: Enumerable<number>
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedFloatFilter | number
   }
 
   export type NestedStringWithAggregatesFilter = {
@@ -3277,115 +3420,142 @@ export namespace Prisma {
     _max?: NestedStringFilter
   }
 
-  export type NestedFloatWithAggregatesFilter = {
-    equals?: number
-    in?: Enumerable<number>
-    notIn?: Enumerable<number>
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedFloatWithAggregatesFilter | number
+  export type NestedDateTimeWithAggregatesFilter = {
+    equals?: Date | string
+    in?: Enumerable<Date> | Enumerable<string>
+    notIn?: Enumerable<Date> | Enumerable<string>
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeWithAggregatesFilter | Date | string
     _count?: NestedIntFilter
-    _avg?: NestedFloatFilter
-    _sum?: NestedFloatFilter
-    _min?: NestedFloatFilter
-    _max?: NestedFloatFilter
+    _min?: NestedDateTimeFilter
+    _max?: NestedDateTimeFilter
   }
 
-  export type ReviewCreateWithoutProductInput = {
+  export type AnswerCreateWithoutMessageInput = {
     text: string
+    likes: number
+    dislikes: number
+    createdAt?: Date | string
   }
 
-  export type ReviewUncheckedCreateWithoutProductInput = {
+  export type AnswerUncheckedCreateWithoutMessageInput = {
     id?: number
     text: string
+    likes: number
+    dislikes: number
+    createdAt?: Date | string
   }
 
-  export type ReviewCreateOrConnectWithoutProductInput = {
-    where: ReviewWhereUniqueInput
-    create: XOR<ReviewCreateWithoutProductInput, ReviewUncheckedCreateWithoutProductInput>
+  export type AnswerCreateOrConnectWithoutMessageInput = {
+    where: AnswerWhereUniqueInput
+    create: XOR<AnswerCreateWithoutMessageInput, AnswerUncheckedCreateWithoutMessageInput>
   }
 
-  export type ReviewCreateManyProductInputEnvelope = {
-    data: Enumerable<ReviewCreateManyProductInput>
+  export type AnswerCreateManyMessageInputEnvelope = {
+    data: Enumerable<AnswerCreateManyMessageInput>
     skipDuplicates?: boolean
   }
 
-  export type ReviewUpsertWithWhereUniqueWithoutProductInput = {
-    where: ReviewWhereUniqueInput
-    update: XOR<ReviewUpdateWithoutProductInput, ReviewUncheckedUpdateWithoutProductInput>
-    create: XOR<ReviewCreateWithoutProductInput, ReviewUncheckedCreateWithoutProductInput>
+  export type AnswerUpsertWithWhereUniqueWithoutMessageInput = {
+    where: AnswerWhereUniqueInput
+    update: XOR<AnswerUpdateWithoutMessageInput, AnswerUncheckedUpdateWithoutMessageInput>
+    create: XOR<AnswerCreateWithoutMessageInput, AnswerUncheckedCreateWithoutMessageInput>
   }
 
-  export type ReviewUpdateWithWhereUniqueWithoutProductInput = {
-    where: ReviewWhereUniqueInput
-    data: XOR<ReviewUpdateWithoutProductInput, ReviewUncheckedUpdateWithoutProductInput>
+  export type AnswerUpdateWithWhereUniqueWithoutMessageInput = {
+    where: AnswerWhereUniqueInput
+    data: XOR<AnswerUpdateWithoutMessageInput, AnswerUncheckedUpdateWithoutMessageInput>
   }
 
-  export type ReviewUpdateManyWithWhereWithoutProductInput = {
-    where: ReviewScalarWhereInput
-    data: XOR<ReviewUpdateManyMutationInput, ReviewUncheckedUpdateManyWithoutReviewsInput>
+  export type AnswerUpdateManyWithWhereWithoutMessageInput = {
+    where: AnswerScalarWhereInput
+    data: XOR<AnswerUpdateManyMutationInput, AnswerUncheckedUpdateManyWithoutAnswersInput>
   }
 
-  export type ReviewScalarWhereInput = {
-    AND?: Enumerable<ReviewScalarWhereInput>
-    OR?: Enumerable<ReviewScalarWhereInput>
-    NOT?: Enumerable<ReviewScalarWhereInput>
+  export type AnswerScalarWhereInput = {
+    AND?: Enumerable<AnswerScalarWhereInput>
+    OR?: Enumerable<AnswerScalarWhereInput>
+    NOT?: Enumerable<AnswerScalarWhereInput>
     id?: IntFilter | number
     text?: StringFilter | string
-    productId?: IntFilter | number
+    likes?: IntFilter | number
+    dislikes?: IntFilter | number
+    createdAt?: DateTimeFilter | Date | string
+    messageId?: IntFilter | number
   }
 
-  export type ProductCreateWithoutReviewsInput = {
-    title: string
-    price: number
+  export type MessageCreateWithoutAnswersInput = {
+    text: string
+    likes: number
+    dislikes: number
+    createdAt?: Date | string
   }
 
-  export type ProductUncheckedCreateWithoutReviewsInput = {
-    id?: number
-    title: string
-    price: number
-  }
-
-  export type ProductCreateOrConnectWithoutReviewsInput = {
-    where: ProductWhereUniqueInput
-    create: XOR<ProductCreateWithoutReviewsInput, ProductUncheckedCreateWithoutReviewsInput>
-  }
-
-  export type ProductUpsertWithoutReviewsInput = {
-    update: XOR<ProductUpdateWithoutReviewsInput, ProductUncheckedUpdateWithoutReviewsInput>
-    create: XOR<ProductCreateWithoutReviewsInput, ProductUncheckedCreateWithoutReviewsInput>
-  }
-
-  export type ProductUpdateWithoutReviewsInput = {
-    title?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
-  }
-
-  export type ProductUncheckedUpdateWithoutReviewsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    title?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
-  }
-
-  export type ReviewCreateManyProductInput = {
+  export type MessageUncheckedCreateWithoutAnswersInput = {
     id?: number
     text: string
+    likes: number
+    dislikes: number
+    createdAt?: Date | string
   }
 
-  export type ReviewUpdateWithoutProductInput = {
+  export type MessageCreateOrConnectWithoutAnswersInput = {
+    where: MessageWhereUniqueInput
+    create: XOR<MessageCreateWithoutAnswersInput, MessageUncheckedCreateWithoutAnswersInput>
+  }
+
+  export type MessageUpsertWithoutAnswersInput = {
+    update: XOR<MessageUpdateWithoutAnswersInput, MessageUncheckedUpdateWithoutAnswersInput>
+    create: XOR<MessageCreateWithoutAnswersInput, MessageUncheckedCreateWithoutAnswersInput>
+  }
+
+  export type MessageUpdateWithoutAnswersInput = {
     text?: StringFieldUpdateOperationsInput | string
+    likes?: IntFieldUpdateOperationsInput | number
+    dislikes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ReviewUncheckedUpdateWithoutProductInput = {
+  export type MessageUncheckedUpdateWithoutAnswersInput = {
     id?: IntFieldUpdateOperationsInput | number
     text?: StringFieldUpdateOperationsInput | string
+    likes?: IntFieldUpdateOperationsInput | number
+    dislikes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ReviewUncheckedUpdateManyWithoutReviewsInput = {
+  export type AnswerCreateManyMessageInput = {
+    id?: number
+    text: string
+    likes: number
+    dislikes: number
+    createdAt?: Date | string
+  }
+
+  export type AnswerUpdateWithoutMessageInput = {
+    text?: StringFieldUpdateOperationsInput | string
+    likes?: IntFieldUpdateOperationsInput | number
+    dislikes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AnswerUncheckedUpdateWithoutMessageInput = {
     id?: IntFieldUpdateOperationsInput | number
     text?: StringFieldUpdateOperationsInput | string
+    likes?: IntFieldUpdateOperationsInput | number
+    dislikes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AnswerUncheckedUpdateManyWithoutAnswersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    text?: StringFieldUpdateOperationsInput | string
+    likes?: IntFieldUpdateOperationsInput | number
+    dislikes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
