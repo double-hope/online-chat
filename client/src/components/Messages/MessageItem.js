@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Message.css';
-import { UPDATE_DISLIKES, UPDATE_LIKES } from '../../queries';
+import { UPDATE_DISLIKES, UPDATE_LIKES} from '../../queries';
 import { useMutation } from '@apollo/client';
 import { updateLikesStore, updateDislikesStore} from '../../helpers/helpers';
 import {Link} from "react-router-dom";
@@ -108,7 +108,7 @@ export const MessageItem = ({ message, setAnswer, setAnsweredMessage }) => {
             <div className="message-id">
                 <span>#{message.id}</span>
                 {message.answers.length
-                    ?<Link to={`/answers/${message.id}`}>Replies</Link>
+                    ?<div className="link-container"><Link to={`/answers/${message.id}`}>Replies</Link></div>
                     :<></>
                 }
             </div>

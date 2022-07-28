@@ -25,7 +25,7 @@ const updateLikes = async (_parent, args, context) => {
         throw new Error(`Product with id ${id} does not exist`);
     }
 
-    return context.prisma.message.update({
+    const updatedLikes = context.prisma.message.update({
         where: {
             id: id,
         },
@@ -34,6 +34,9 @@ const updateLikes = async (_parent, args, context) => {
         }
     });
 
+    context.pubsub.publish('CHANGE_LIKES', updatedLikes);
+
+    return updatedLikes;
 }
 
 const updateDislikes = async (_parent, args, context) => {
@@ -50,7 +53,7 @@ const updateDislikes = async (_parent, args, context) => {
         throw new Error(`Product with id ${id} does not exist`);
     }
 
-    return context.prisma.message.update({
+    const updatedDislikes = context.prisma.message.update({
         where: {
             id: id,
         },
@@ -58,7 +61,9 @@ const updateDislikes = async (_parent, args, context) => {
             dislikes: dislikes,
         }
     });
+    context.pubsub.publish('CHANGE_DISLIKES', updatedDislikes);
 
+    return updatedDislikes;
 }
 
 const createAnswer = async (_parent, args, context) => {

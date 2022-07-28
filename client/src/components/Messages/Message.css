@@ -87,7 +87,7 @@ button:hover, .icon:hover{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: space-between;
+    align-items: flex-end;
 }
 
 .likes-dislikes, .text{
@@ -102,4 +102,13 @@ button:hover, .icon:hover{
 .votes{
     padding: 0 5px;
     color: rgba(0, 0, 0, .5);
+}
+a, a:visited{
+    text-decoration: none;
+    color: hsl(208, 61%, 20%);
+}
+.link-container{
+    padding: 5px;
+    background-color: hsl(208, 40%, 65%);
+    border-radius: 10px;
 }

@@ -19,6 +19,25 @@ export const GET_MESSAGES = gql`
     }
 `;
 
+export const GET_FILTERED_MESSAGES = gql`
+    query getMessages($filter: String!, $orderBy: MessageOrderByInput!){
+        messages(filter: $filter,orderBy: $orderBy){
+            messageList{
+                id
+                text
+                likes
+                dislikes
+                answers {
+                    id
+                    text
+                    likes
+                    dislikes
+                }
+            }
+        }
+    }
+`;
+
 export const CREATE_MESSAGE = gql`
     mutation createMessage($message: MessageInput!) {
         createMessage(message: $message) {
@@ -60,6 +79,28 @@ export const CREATE_ANSWER = gql`
 export const NEW_MESSAGE = gql`
     subscription newMessage {
         newMessage {
+            id
+            text
+            likes
+            dislikes
+        }
+    }
+`;
+
+export const CHANGE_LIKES = gql`
+    subscription updatedLikes {
+        updatedLikes {
+            id
+            text
+            likes
+            dislikes
+        }
+    }
+`;
+
+export const CHANGE_DISLIKES = gql`
+    subscription updatedDislikes {
+        updatedDislikes {
             id
             text
             likes

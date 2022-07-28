@@ -66,4 +66,6 @@ type Mutation {
 
 type Subscription {
     newMessage: Message
+    updatedLikes: Message
+    updatedDislikes: Message
 }
