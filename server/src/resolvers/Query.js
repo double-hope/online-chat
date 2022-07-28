@@ -7,9 +7,9 @@ const messages = async (_parent, args, context, _info) => {
 
     const messageList = await context.prisma.message.findMany({
         where,
-        // include: {
-        //     answers: true,
-        // },
+        include: {
+            answers: true,
+        },
         skip,
         take,
         orderBy,

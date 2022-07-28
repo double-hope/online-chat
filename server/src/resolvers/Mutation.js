@@ -61,8 +61,35 @@ const updateDislikes = async (_parent, args, context) => {
 
 }
 
+const createAnswer = async (_parent, args, context) => {
+    const { answer: { text, messageId } } = args;
+
+    const isMessageExists = await context.prisma.message.findFirst({
+        where: {
+            id: messageId,
+        },
+        select: { id: true },
+    }).then(Boolean);
+
+    if (!isMessageExists) {
+        throw new Error(`Product with id ${messageId} does not exist`);
+    }
+
+    return context.prisma.answer.create({
+        data: {
+            text,
+            likes: 0,
+            dislikes: 0,
+            message: {
+                connect: { id: messageId },
+            },
+        },
+    });
+};
+
 module.exports = {
     createMessage,
     updateLikes,
     updateDislikes,
+    createAnswer,
 };

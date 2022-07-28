@@ -8,6 +8,12 @@ export const GET_MESSAGES = gql`
                 text
                 likes
                 dislikes
+                answers {
+                    id
+                    text
+                    likes
+                    dislikes
+                }
             }
         }
     }
@@ -40,14 +46,16 @@ export const UPDATE_DISLIKES = gql`
     }
 `;
 
-// export const CREATE_ANSWER = gql`
-//     mutation createAnswer($answer: AnswerInput!) {
-//         createAnswer(answer: $answer) {
-//             id
-//             text
-//         }
-//     }
-// `;
+export const CREATE_ANSWER = gql`
+    mutation createAnswer($answer: AnswerInput!) {
+        createAnswer(answer: $answer) {
+            id
+            text
+            likes
+            dislikes
+        }
+    }
+`;
 
 export const NEW_MESSAGE = gql`
     subscription newMessage {

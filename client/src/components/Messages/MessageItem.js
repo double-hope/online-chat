@@ -3,10 +3,9 @@ import './Message.css';
 import { UPDATE_DISLIKES, UPDATE_LIKES } from '../../queries';
 import { useMutation } from '@apollo/client';
 import { updateLikesStore, updateDislikesStore} from '../../helpers/helpers';
+import {Link} from "react-router-dom";
 
-
-
-export const MessageItem = ({ message }) => {
+export const MessageItem = ({ message, setAnswer, setAnsweredMessage }) => {
     const [isLiked, setIsLiked] = useState(false);
     const [isDisliked, setIsDisliked] = useState(false);
 
@@ -80,8 +79,13 @@ export const MessageItem = ({ message }) => {
         }
     }
 
+    const messageAnswer = () => {
+        setAnswer(true);
+        setAnsweredMessage(message);
+    }
+
     return (
-        <div className="message">
+        <div className="message" onDoubleClick={messageAnswer}>
             <div className="text-favour">
                 <div className="text">
                     {message.text}
@@ -103,6 +107,10 @@ export const MessageItem = ({ message }) => {
             </div>
             <div className="message-id">
                 <span>#{message.id}</span>
+                {message.answers.length
+                    ?<Link to={`/answers/${message.id}`}>Replies</Link>
+                    :<></>
+                }
             </div>
         </div>
     );

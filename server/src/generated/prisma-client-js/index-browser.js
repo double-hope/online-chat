@@ -104,18 +104,6 @@ exports.Prisma.AnswerScalarFieldEnum = makeEnum({
   messageId: 'messageId'
 });
 
-exports.Prisma.ProductScalarFieldEnum = makeEnum({
-  id: 'id',
-  title: 'title',
-  price: 'price'
-});
-
-exports.Prisma.ReviewScalarFieldEnum = makeEnum({
-  id: 'id',
-  text: 'text',
-  productId: 'productId'
-});
-
 exports.Prisma.SortOrder = makeEnum({
   asc: 'asc',
   desc: 'desc'
@@ -129,9 +117,7 @@ exports.Prisma.QueryMode = makeEnum({
 
 exports.Prisma.ModelName = makeEnum({
   Message: 'Message',
-  Answer: 'Answer',
-  Product: 'Product',
-  Review: 'Review'
+  Answer: 'Answer'
 });
 
 /**
